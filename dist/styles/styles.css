@@ -4,30 +4,58 @@ body {
 }
 
 section, footer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
     width: 100%;
     height: 100vh;
 }
 
 .hero {
-    background-color: #fa625f;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
 }
 
-.initials {
-    color: white;
+.knockout {
     background: url('../assets/hero-background.jpg')no-repeat;
     background-size: cover;
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
-    background-clip: text;
-    font-family: 'Archivo Black', sans-serif;
-    line-height:50vw;
-    font-size: 70vw;
-    letter-spacing: -14vw;
-    text-align: center;
+    width: 100%;
+    height: auto;
 }
 
-.about {
+.rest {
     background-color: #fbf579;
+    width: 100%;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+}
+
+@media screen and (min-aspect-ratio: 1454/859) {
+    .hero {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: reverse;
+            -ms-flex-direction: row-reverse;
+                flex-direction: row-reverse;
+    }
+    .knockout {
+        width: auto;
+        height: 100vh;
+    }
+}
+
+/* .knockout {
+    width: 100%;
+    height: 100%;
+    background: url('../assets/hero-knockout.png')no-repeat;
+    background-position: top right;
+    background-size: contain; 
+} */
+
+.about {
+    background-color: #fa625f;
 }
 
 .portfolio {
