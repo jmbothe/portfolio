@@ -1,5 +1,5 @@
 * {
-    font-family: 'Archivo Black', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
     color: hsl(290, 6%, 18%);
 }
 
@@ -21,6 +21,19 @@ section, footer {
     height: auto;
 }
 
+a {
+    color: hsl(290, 6%, 70%);
+    text-decoration: none;
+}
+
+a:hover {
+    color: hsl(290, 6%, 18%);
+}
+
+h1, h2, h3 {
+    font-family: 'Archivo Black', sans-serif;
+}
+
 h1 {
     margin-bottom: 0;
     font-size: 6em;
@@ -30,9 +43,8 @@ h2 {
     font-size: 4em;
 }
 
-p {
-    width: 90%;
-    font-size: 3em;
+h3 {
+    font-size: 2.5em;
 }
 
 .hero {
@@ -80,13 +92,12 @@ p {
     background: linear-gradient(#fbf579, #fa625f);
 }
 
-.about p:nth-child(2) {
-        -ms-flex-item-align: end;
-            align-self: flex-end;
-        text-align: right;
+.about p {
+        width: 85%;
+        font-size: 3em;
     }
 
-.about p:nth-child(4) {
+.about p:nth-child(even) {
         -ms-flex-item-align: end;
             align-self: flex-end;
         text-align: right;
@@ -100,19 +111,49 @@ p {
     background-color: #fa625f;
 }
 
+.portfolio p{
+        font-size: 2em;
+    }
+
 .portfolio-grid {
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
 }
 
-.portfolio-grid div {
-        width: 50%;  
+.portfolio-grid > div {
+        width: 46%;
+        padding: 2%;
     }
 
+.portfolio-grid > div h3 {
+            text-align: center;
+        }
+
+.portfolio-grid > div p {
+            font-size: 1em;
+        }
+
+.portfolio-links {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    font-size: 1.5em;
+}
+
 .skills {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     background: -webkit-gradient(linear, left top, left bottom, from(#fa625f), to(#fbf579));
     background: linear-gradient(#fa625f, #fbf579);
 }
+
+.skills p {
+        font-size: 2em;
+    }
 
 footer {
     background-color: #fbf579;
