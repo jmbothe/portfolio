@@ -1,5 +1,5 @@
 * {
-    font-family: 'Archivo Black', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
     color: hsl(290, 6%, 18%);
 }
 
@@ -19,6 +19,19 @@ section, footer {
     height: auto;
 }
 
+a {
+    color: hsl(290, 6%, 70%);
+    text-decoration: none;
+}
+
+a:hover {
+    color: hsl(290, 6%, 18%);
+}
+
+h1, h2, h3 {
+    font-family: 'Archivo Black', sans-serif;
+}
+
 h1 {
     margin-bottom: 0;
     font-size: 6em;
@@ -28,9 +41,8 @@ h2 {
     font-size: 4em;
 }
 
-p {
-    width: 90%;
-    font-size: 3em;
+h3 {
+    font-size: 2.5em;
 }
 
 .hero {
@@ -66,11 +78,11 @@ p {
 .about {
     flex-direction: column;
     background: linear-gradient(#fbf579, #fa625f);
-    p:nth-child(2) {
-        align-self: flex-end;
-        text-align: right;
+    p {
+        width: 85%;
+        font-size: 3em;
     }
-    p:nth-child(4) {
+    p:nth-child(even) {
         align-self: flex-end;
         text-align: right;
     }
@@ -79,17 +91,37 @@ p {
 .portfolio {
     flex-direction: column;
     background-color: #fa625f;
+    p{
+        font-size: 2em;
+    }
 }
 
 .portfolio-grid {
     flex-wrap: wrap;
-    div {
-        width: 50%;  
+    > div {
+        width: 46%;
+        padding: 2%;
+        h3 {
+            text-align: center;
+        }
+        p {
+            font-size: 1em;
+        }
     }
 }
 
+.portfolio-links {
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.5em;
+}
+
 .skills {
+    flex-direction: column;
     background: linear-gradient(#fa625f, #fbf579);
+    p {
+        font-size: 2em;
+    }
 }
 
 footer {
