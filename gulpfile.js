@@ -8,7 +8,7 @@ gulp.task('css', () => {
 
   return gulp.src('app/styles/**/*.css')
     .pipe(plumber())
-    .pipe(postcss([require('autoprefixer')]))
+    .pipe(postcss([require('precss')(), require('autoprefixer')({ browsers: 'last 2 versions, > 5%' })]))
     .pipe(gulp.dest('dist/styles/'))
     .pipe(reload({stream: true}));
 });
