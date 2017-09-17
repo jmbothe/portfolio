@@ -1,10 +1,13 @@
 * {
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 800;
     color: hsl(290, 6%, 18%);
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
 }
 
 html {
-    font-size: 2vw;
+    font-size: 2vmin;
 }
 
 body {
@@ -18,16 +21,10 @@ section, footer {
     display: -ms-flexbox;
     display: flex;
     width: 100%;
-    height: auto;
-}
-
-a {
-    color: hsl(290, 6%, 70%);
-    text-decoration: none;
 }
 
 a:hover {
-    color: hsl(290, 6%, 18%);
+    color: #fa625f;
 }
 
 h1, h2, h3 {
@@ -35,12 +32,13 @@ h1, h2, h3 {
 }
 
 h1 {
+    border-bottom: 8px solid #fa625f;
     margin-bottom: 0;
-    font-size: 6em;
+    font-size: 7em;
 }
 
 h2 {
-    font-size: 4em;
+    font-size: 4.5em;
 }
 
 h3 {
@@ -53,6 +51,7 @@ h3 {
         -ms-flex-direction: column;
             flex-direction: column;
     position: relative;
+    height: 100vh;
 }
 
 .knockout {
@@ -72,7 +71,7 @@ h3 {
 
 .hero-text {
     position: absolute;
-    bottom: 0;
+    bottom: 20%;
     left: 0;
     right: 0;
     background-color: transparent;
@@ -93,17 +92,75 @@ h3 {
 }
 
 .about p {
-        width: 85%;
-        font-size: 3em;
+        font-size: 7em;
     }
 
-.about p:nth-child(even) {
-        -ms-flex-item-align: end;
-            align-self: flex-end;
-        text-align: right;
+.projects, footer {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    background-color: #fbf579;
+}
+
+.projects h2, footer h2 {
+        font-size: 9em;
+        background-color: #fbf579;
     }
 
-.portfolio {
+.projects p, footer p {
+        font-size: 2em;
+    }
+
+.projects-grid, .skills-grid {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+}
+
+.projects-grid > div, .skills-grid > div {
+        width: 96%;
+        margin: 0 6% 6% 6%;
+        padding: 6%;
+        background-color: #fa625f;
+    }
+
+.projects-grid > div h3, .skills-grid > div h3 {
+            margin-top: 0;
+            text-align: center;
+            font-size: 3em;
+        }
+
+.projects-grid > div p, .skills-grid > div p {
+            font-size: 2em;
+        }
+
+.projects-grid > div p a, .skills-grid > div p a {
+                font-size: 1em;
+            }
+
+.projects-grid > div a, .skills-grid > div a {
+            font-size: 1.5em;
+        }
+
+.projects-links {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    background-color: #fbf579;
+    font-size: 1.5em;
+}
+
+.projects-links a {
+        text-decoration: none;
+    }
+
+.projects-links a:hover {
+        color: #fa625f;
+    }
+
+.skills {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
@@ -111,53 +168,68 @@ h3 {
     background-color: #fa625f;
 }
 
-.portfolio p{
-        font-size: 2em;
+.skills h2 {
+        font-size: 9em;
+        background-color: #fa625f;
     }
-
-.portfolio-grid {
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-}
-
-.portfolio-grid > div {
-        width: 46%;
-        padding: 2%;
-    }
-
-.portfolio-grid > div h3 {
-            text-align: center;
-        }
-
-.portfolio-grid > div p {
-            font-size: 1em;
-        }
-
-.portfolio-links {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-pack: distribute;
-        justify-content: space-around;
-    font-size: 1.5em;
-}
-
-.skills {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    background: -webkit-gradient(linear, left top, left bottom, from(#fa625f), to(#fbf579));
-    background: linear-gradient(#fa625f, #fbf579);
-}
 
 .skills p {
         font-size: 2em;
     }
 
-footer {
-    background-color: #fbf579;
+.skills-grid > div {
+        background-color: #fbf579;
+    }
+
+.skills-grid > div ul li {
+                padding: 1.5%;
+                font-size: 2em;
+            }
+
+footer ul {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        -ms-flex-pack: distribute;
+            justify-content: space-around;
+        padding: 0;
+        list-style-type: none;
+    }
+
+footer ul li {
+            margin: 5%;
+            font-size: 14em;
+        }
+
+.secret {
+    position: relative;
+    height: 1000vh;
+    background-image: repeating-linear-gradient(
+    hsl(57, 94%, 73%),
+    hsl(97, 94%, 73%) 10%,
+    hsl(137, 94%, 73%) 15%,
+    hsl(177, 94%, 73%) 20%,
+    hsl(217, 94%, 73%) 25%,
+    hsl(257, 94%, 73%) 30%,
+    hsl(297, 94%, 73%) 35%,
+    hsl(337, 94%, 73%) 40%,
+    hsl(17, 94%, 73%) 45%,
+    hsl(57, 94%, 73%) 50%
+    );
 }
+
+.secret a {
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 50px;
+        text-align: center;
+    }
+
+/* Landscape dimensions for hero image */
 
 @media screen and (min-aspect-ratio: 1454/859) {
     .hero {
@@ -169,5 +241,59 @@ footer {
     .knockout {
         width: auto;
         height: 100vh;
+    }
+}
+
+/* general landscape rules */
+
+@media screen and (orientation: landscape) {
+    h1 {
+        border: none;
+    }
+
+    .hero-text {
+        bottom: 0;
+    }
+
+    .about {
+        padding-top: 10%;
+    }
+}
+
+/* larger than small mobile */
+
+@media only screen and (min-width : 414px) {
+
+}
+
+/* larger than large mobile */
+
+@media only screen 
+and (min-width : 737px) {
+        .projects-grid > div, .skills-grid > div {
+            width: 46%;
+            margin: 2%;
+            padding: 2%;
+        }
+            .projects-grid > div p, .skills-grid > div p {
+                font-size: 1em;
+            }
+        .skills-grid > div {
+            width: 29%;
+            background-color: #fbf579;
+        }
+                .skills-grid > div ul li {
+                    font-size: 1.25em;
+                }
+}
+
+@media only screen 
+and (min-width : 1025px) {
+    h1 {
+        font-size: 11em;
+    }
+
+    h2 {
+        font-size: 8em;
     }
 }
