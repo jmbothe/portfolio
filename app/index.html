@@ -5,12 +5,14 @@
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <title>Template</title>
+  <title>Jeff Bothe - Web Guy</title>
 
-  <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Roboto|Source+Sans+Pro" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="assets/icons/foundation-icons.css">
   <link rel="stylesheet" href="styles/normalize.css">
   <link rel="stylesheet" href="styles/styles.css">
   <script src="scripts/main.js" defer></script>
+  <script src="scripts/main.min.js" defer></script>
 </head>
 
 <body>
@@ -25,47 +27,44 @@
   </section>
 
   <section class="about">
-    <p>Hi, I'm Jeff, front-end web developer, photographer, and traveler from Baltimore, MD.</p>
-    <p>I am currently living in Manizales, Colombia, where I devote all of my free time to leveling-up my tech skills...</p>
-    <p>Well, almost all of my free time. I also make a regular habit of climbing the local volcanoes when the weather is good.</p>
+    <p>Hi, I'm Jeff, front-end web developer, musician, photographer, and traveler from Baltimore, MD.</p>
+    <p>I currently live in the central mountains of Colombia, where I devote all of my free time to leveling-up my tech skills...</p>
+    <p>Well, almost all of my free time. I also like to climb the local volcanoes when the weather is good.</p>
     <p>Scroll down, have a look around, and be sure to get in touch :)</p>
   </section>
 
-  <section class="portfolio">
+  <section class="projects">
     <h2>Projects</h2>
-    <p>Here you'll find a selection of projects I'm particularly proud of. All aliteration aside, I think you'll like them too.
-      Click each project's Github link to read an in-depth discussion of the development process, or click the demo link to see it live.
-    </p>
-    <section class="portfolio-grid">
+    <section class="projects-grid">
       <div class="drum-machine">
         <h3>Drum Machine</h3>
-        <div class="portfolio-links">
-          <a href="https://jmbothe.github.io/drum-sequencer/dist/" target="_blank">Demo</a>
-          <a href="https://github.com/jmbothe/drum-sequencer" target="_blank">Github</a>
+        <div class="projects-links">
+          <a href="https://jmbothe.github.io/drum-sequencer/dist/" target="_blank">Live Demo</a>
+          <a href="https://github.com/jmbothe/drum-sequencer" target="_blank">Github Repo</a>
         </div>
         <p>This is a very basic drum sequencer that has three options for drum kit sounds, two toggle-able measures of 16th notes, and a tempo slider that ranges between 30bpm and 150bpm. It was originally conceived as a learning exercise in jQuery, but quickly grew to double as a serious challenge in wrangling the Web Audio API.</p>
       </div>
       <div class="client-website">
         <h3>Client Website</h3>
-        <div class="portfolio-links">
-          <a href="https://jmbothe.github.io/photo-phinish/" target="_blank">Demo</a>
-          <a href="https://github.com/jmbothe/photo-phinish" target="_blank">Github</a>
+        <div class="projects-links">
+          <a href="https://jmbothe.github.io/photo-phinish/" target="_blank">Live Demo</a>
+          <a href="https://github.com/jmbothe/photo-phinish" target="_blank">Github Repo</a>
         </div>
         <p>This is a basic website for a local painting business, which uncoincidentally is run by my brother. This is the first website I ever built that wasn't a clone of a popular homepage like Apple or Mint. This is also the first time I ever used a front-end framework to build a website. I chose to work with Foundation for Sites.</p>
       </div>
       <div class="calculator">
         <h3>Calculator</h3>
-        <div class="portfolio-links">
-          <a href="https://jmbothe.github.io/calculator-MVC/dist/" target="_blank">Demo</a>
-          <a href="https://github.com/jmbothe/calculator-MVC" target="_blank">Github</a>
+        <div class="projects-links">
+          <a href="https://jmbothe.github.io/calculator-MVC/dist/" target="_blank">Live Demo</a>
+          <a href="https://github.com/jmbothe/calculator-MVC" target="_blank">Github Repo</a>
         </div>
         <p>This calculator was built for personal edification, and is based on two major influences. On the surface, it is an attempt to reverse engineer the basic functionality of the iOS10 calculator (in portrait view). Under the hood, it is an attempt to follow the rudiments of the MVC design pattern.</p>
       </div>
       <div class="todo-list">
         <h3>Todo List</h3>
-        <div class="portfolio-links">
-          <a href="https://jmbothe.github.io/todo-list/dist/" target="_blank">Demo</a>
-          <a href="https://github.com/jmbothe/todo-list" target="_blank">Github</a>
+        <div class="projects-links">
+          <a href="https://jmbothe.github.io/todo-list/dist/" target="_blank">Live Demo</a>
+          <a href="https://github.com/jmbothe/todo-list" target="_blank">Github Repo</a>
         </div>
         <p>Every newbie coder must at some point commit themselves to completing a todo list app tutorial. I was lucky enough to stumble across the <a href="https://watchandcode.com/p/practical-javascript">Watch and Code - Practical Javascript tutorial.</a> This was an absolute game changer for me--a revelation on so many levels--and I highly recommend it to all newbs.</p>
       </div>
@@ -74,15 +73,53 @@
   
   <section class="skills">
       <h2>Skills</h2>
-      <p>Just a short selection of the skills and technologies I am most familiar with. I am constantly adding new things to my skillset every day.</p>
       <section class="skills-grid">
+        <div class="core">
+          <h3>Core Skills</h3>
+          <ul>
+            <li>Mobile-first responsive design</li>
+            <li>Sound software architecture design patterns</li>
+            <li>Clean, DRY, elf-documenting code</li>
+            <li>Functional and object-oriented programming</li>
+          </ul>
+        </div>
 
+        <div class="web-tech">
+          <h3>Web Tech</h3>
+          <ul>
+            <li>HTML5</li>
+            <li>CSS3</li>
+            <li>JavaScript - ES6</li>
+            <li>Node.js</li>
+          </ul>
+        </div>
+
+        <div class="design">
+          <h3>Design</h3>
+          <ul>
+            <li>Adobe Photoshop</li>
+            <li>Adobe Lightroom</li>
+            <li>GIMP</li>
+          </ul>
+        </div>
       </section>
+      
   </section>
 
   <footer class="contact">
       <h2>Contact</h2>
+      <ul>
+        <li><a href="mailto:jeffrymbothe@gmail.com" target="_blank"><i class="fi-mail"></i></a></li>
+        <li><a href="https://github.com/jmbothe/" target="_blank"><i class="fi-social-github"></i></a></li>
+        <li><a href="www.linkedin.com/in/jmbothe" target="_blank"><i class="fi-social-linkedin"></i></a></li>
+        <li><a href="https://www.instagram.com/jeff_bothe/" target="_blank"><i class="fi-social-instagram"></i></a></li>
+        <li><a href="https://twitter.com/jeffbothe" target="_blank"><i class="fi-social-twitter"></i></a></li>
+      </ul>
   </footer>
+
+  <section class="secret">
+    <a href="https://loveasaurus.bandcamp.com/track/alright-2" target="_blank">hidden track</a>
+  </section>
 
 </body>
 

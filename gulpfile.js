@@ -38,7 +38,7 @@ gulp.task('assets:cleanfolder', (cb) => {
 })
 
 gulp.task('assets:copy', ['assets:cleanfolder'], () => {
-  return gulp.src(['app/assets/*', '!app/assets/psd/'])
+  return gulp.src(['app/assets/**/*', '!app/assets/psd/'])
     .pipe(gulp.dest('dist/assets'))
 })
 
