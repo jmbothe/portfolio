@@ -13,14 +13,12 @@ html {
 body {
     margin: 0;
     padding: 0;
-    background-color: transparent;
 }
 
 section, footer {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    width: 100%;
 }
 
 a:hover {
@@ -58,12 +56,10 @@ h3 {
     background: url('../assets/hero-background.jpg')no-repeat;
     background-size: cover;
     width: 100%;
-    height: auto;
 }
 
 .knockout-fill {
     background-color: #fbf579;
-    width: 100%;
     -webkit-box-flex: 1;
         -ms-flex: 1;
             flex: 1;
@@ -106,6 +102,8 @@ h3 {
 .projects h2, footer h2 {
         font-size: 9em;
         background-color: #fbf579;
+        margin-top: 5%;
+        margin-bottom: 5%;
     }
 
 .projects p, footer p {
@@ -113,15 +111,32 @@ h3 {
     }
 
 .projects-grid, .skills-grid {
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .projects-grid > div, .skills-grid > div {
-        width: 96%;
-        margin: 0 6% 6% 6%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        height: 85vw;
+        width: 85vw;
+        margin: 0 0 6%;
         padding: 6%;
-        background-color: #fa625f;
+        border: 10px solid #fa625f;
+        border-radius: 50%;
     }
 
 .projects-grid > div h3, .skills-grid > div h3 {
@@ -132,6 +147,7 @@ h3 {
 
 .projects-grid > div p, .skills-grid > div p {
             font-size: 2em;
+            text-align: center;
         }
 
 .projects-grid > div p a, .skills-grid > div p a {
@@ -148,7 +164,7 @@ h3 {
     display: flex;
     -ms-flex-pack: distribute;
         justify-content: space-around;
-    background-color: #fbf579;
+    background-color: #fa625f;
     font-size: 1.5em;
 }
 
@@ -157,7 +173,7 @@ h3 {
     }
 
 .projects-links a:hover {
-        color: #fa625f;
+        color: #fbf579 ;
     }
 
 .skills {
@@ -169,6 +185,8 @@ h3 {
 }
 
 .skills h2 {
+        margin-top: 5%;
+        margin-bottom: 5%;
         font-size: 9em;
         background-color: #fa625f;
     }
@@ -199,7 +217,7 @@ footer ul {
     }
 
 footer ul li {
-            margin: 5%;
+            margin: 0 5%;
             font-size: 14em;
         }
 
@@ -247,6 +265,39 @@ footer ul li {
 /* general landscape rules */
 
 @media screen and (orientation: landscape) {
+    .projects, footer {
+        height: 100vh;
+    }
+    .projects-grid, .skills-grid {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: row;
+                flex-direction: row;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        -ms-flex-pack: distribute;
+            justify-content: space-around;
+        -webkit-box-align: stretch;
+            -ms-flex-align: stretch;
+                align-items: stretch;
+    }
+        .projects-grid > div, .skills-grid > div {
+            width: 23%;
+            height: auto;
+            margin: 0 1%;
+            border-radius: 20px;
+            padding: 1%;
+        }
+            .projects-grid > div h3, .skills-grid > div h3 {
+                font-size: 1.8em;
+            }
+            .projects-grid > div p, .skills-grid > div p {
+                font-size: 1em;
+            }
+            .projects-grid > div a, .skills-grid > div a {
+                font-size: .8em;
+            }
+
     h1 {
         border: none;
     }
@@ -270,14 +321,6 @@ footer ul li {
 
 @media only screen 
 and (min-width : 737px) {
-        .projects-grid > div, .skills-grid > div {
-            width: 46%;
-            margin: 2%;
-            padding: 2%;
-        }
-            .projects-grid > div p, .skills-grid > div p {
-                font-size: 1em;
-            }
         .skills-grid > div {
             width: 29%;
             background-color: #fbf579;
@@ -289,6 +332,28 @@ and (min-width : 737px) {
 
 @media only screen 
 and (min-width : 1025px) {
+    .projects-grid, .skills-grid {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: row;
+                flex-direction: row;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        -ms-flex-pack: distribute;
+            justify-content: space-around;
+        -webkit-box-align: stretch;
+            -ms-flex-align: stretch;
+                align-items: stretch;
+    }
+        .projects-grid > div, .skills-grid > div {
+            width: 23%;
+            height: auto;
+            margin: 0 1%;
+            border-radius: 20px;
+        }
+            .projects-grid > div p, .skills-grid > div p {
+                font-size: 1em;
+            }
     h1 {
         font-size: 11em;
     }
