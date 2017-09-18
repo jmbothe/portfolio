@@ -3,6 +3,7 @@
     font-weight: 800;
     color: hsl(290, 6%, 18%);
     box-sizing: border-box;
+    cursor: default;
 }
 
 html {
@@ -37,11 +38,11 @@ h2 {
 }
 
 h3 {
-    font-size: 2.5rem;
+    font-size: 4rem;
 }
 
 p, a {
-    font-size: 2rem;
+    font-size: 3rem;
 }
 
 .hero {
@@ -95,38 +96,98 @@ p, a {
 .projects-grid {
     flex-direction: column;
     align-items: center;
-    > div {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        height: 85vw;
-        width: 85vw;
-        margin: 0 0 6%;
-        padding: 6%;
-        border: 10px solid #fa625f;
-        border-radius: 50%;
-        h3 {
-            margin-top: 0;
-            text-align: center;
-            font-size: 3rem;
-        }
-        p {
-            text-align: center;
-        }
+}
+
+.project-shell {
+    position: relative;
+    height: 95vw;
+    width: 95vw;
+    h3 {
+        transform: rotate(18deg);
+        transition: transform .3s;
+        position: absolute;
+        z-index: 3;
+        top: 20%;
+        left: -2%;
+        right: -2%;
+        margin: 0;
+        background-color: #fa625f;
+        text-align: center;
+        border: 3px solid #fbf579;
+        border-radius: 10px;
+    }
+    p {
+        z-index: 4;
+        position: absolute;
+        top: 35%;
+        left: 0;
+        right: 0;
+        text-align: center;
+        background-color: #fbf579;
+        border-top: 3px solid #fa625f;
+        border-bottom: 3px solid #fa625f;
     }
 }
 
-.projects-links {
+.project-inner {
+    z-index: 1;
+    position: absolute;
+    top: 5%;
+    bottom: 5%;
+    left: 5%;
+    right: 5%;
+    border: 3rem solid #fa625f;
+    border-radius: 50%;
+}
+
+.project-links {
+    z-index: 2;
+    position: absolute;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    transform: rotate(-10deg);
+    transition: transform .3s;
+    top: 20%;
+    left: -1%;
+    right: -1%;
+    padding: 1%;
     background-color: #fa625f;
-    font-size: 1.5rem;
+    border: 2px solid #fbf579;
+    border-radius: 8px;
     a {
         text-decoration: none;
     }
     a:hover {
         color: #fbf579 ;
     }
+}
+
+.project-hidden {
+    width: 90%;
+    height: auto;
+    padding: 0;
+    transition: transform .1s;
+    h3 {
+        position: static;
+        transform: rotate(0deg);
+        border: 1rem solid #fa625f;
+        border-radius: 10px;
+        text-align: center;
+        margin: 2rem 0;
+    }
+    div, p {
+        display: none;
+    }
+}
+
+h3.collapse-cross, div.collapse-cross {
+    transform: rotate(0deg);
+    transition: transform .15s;
+}
+
+.project-hidden:hover {
+    transform: translateX(-16px);
+    transition: transform .2s;
 }
 
 .skills {
@@ -196,62 +257,21 @@ i {
     }
 }
 
-@media screen
-and (min-aspect-ratio: 2/3){
+@media screen and (min-aspect-ratio: 2/3){
     html {
         font-size: 1.8vmin;
     }
 }
 
-@media screen
-and (min-aspect-ratio: 3/4) {
+@media screen and (min-aspect-ratio: 3/4) {
     html {
         font-size: 1.7vmin;
     }
 }
 
-@media screen
-and (min-aspect-ratio: 1/1) {
+@media screen and (min-aspect-ratio: 1/1) {
     html {
         font-size: 1.8vmin;
-    }
-    .projects {
-        height: 100vh;
-        h2 {
-            margin-bottom: 1%;
-        }
-    }
-    .projects-grid {
-        flex-direction: row;
-        justify-content: space-around;
-        > div {
-            width: 60vh;
-            height: 60vh;
-            margin: 0 1%;
-            padding: 2rem;
-            h3 {
-                font-size: 1.6rem;
-            }
-            p, a {
-                font-size: 1.3rem;
-            }
-        }
-    }
-
-    .project-hidden {
-        writing-mode: vertical-lr;
-        width: auto!important;
-        border-radius: 10px!important;
-        padding: 0!important;
-        h3 {
-            margin: 0!important;
-        }
-        div {
-            display: none;
-        }
-        p {
-            display: none;
-        }
     }
 
     h1 {
@@ -273,15 +293,46 @@ and (min-aspect-ratio: 1/1) {
     }
 }
 
-@media screen
-and (min-aspect-ratio: 4/3){
+@media screen and (min-aspect-ratio: 4/3) {
     html {
         font-size: 2vmin;
     }
+
+    .projects-grid {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .project-shell {
+        height: 85vh;
+        width: 85vh;
+        h3 {
+            font-size: 2.5rem;
+        }
+        p, a {
+            font-size: 2rem;
+        }
+    }
+
+    .project-links {
+        a {
+            font-size: 2rem;
+        }
+    }
+
+    .project-hidden {
+        writing-mode: vertical-lr;
+        width: 10%;
+        height: 90vh;
+    }
+
+    .project-hidden:hover {
+        transform: translateY(-16px);
+        transition: transform .2s;
+    }
 }
 
-@media screen
-and (min-aspect-ratio: 3/2){
+@media screen and (min-aspect-ratio: 3/2){
     html {
         font-size: 2.5vmin;
     }

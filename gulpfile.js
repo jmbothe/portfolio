@@ -18,8 +18,8 @@ gulp.task('scripts', () => {
   const rename = require('gulp-rename');
   gulp.src('app/scripts/**/*.js')
     .pipe(plumber())
-    .pipe(uglify())
-    .pipe(rename({suffix: '.min'}))
+    // .pipe(uglify())
+    // .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest('dist/scripts'))
     .pipe(reload({stream: true}));
 });
@@ -27,7 +27,7 @@ gulp.task('scripts', () => {
 gulp.task('html', () => {
   const htmlReplace = require('gulp-html-replace')
   gulp.src('app/**/*.html')
-  .pipe(htmlReplace({'jsmini': '<script src="scripts/main.min.js" defer></script>'}))
+  // .pipe(htmlReplace({'jsmini': '<script src="scripts/main.min.js" defer></script>'}))
   .pipe(gulp.dest('dist'))
   .pipe(reload({stream: true}));
 })
