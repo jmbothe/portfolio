@@ -4,6 +4,7 @@
     color: hsl(290, 6%, 18%);
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
+    cursor: default;
 }
 
 html {
@@ -40,11 +41,11 @@ h2 {
 }
 
 h3 {
-    font-size: 2.5rem;
+    font-size: 4rem;
 }
 
 p, a {
-    font-size: 2rem;
+    font-size: 3rem;
 }
 
 .hero {
@@ -120,52 +121,127 @@ p, a {
             align-items: center;
 }
 
-.projects-grid > div {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-            -ms-flex-direction: column;
-                flex-direction: column;
-        -webkit-box-pack: center;
-            -ms-flex-pack: center;
-                justify-content: center;
-        height: 85vw;
-        width: 85vw;
-        margin: 0 0 6%;
-        padding: 6%;
-        border: 10px solid #fa625f;
-        border-radius: 50%;
+.project-shell {
+    position: relative;
+    height: 95vw;
+    width: 95vw;
+}
+
+.project-shell h3 {
+        -webkit-transform: rotate(18deg);
+                transform: rotate(18deg);
+        -webkit-transition: -webkit-transform .3s;
+        transition: -webkit-transform .3s;
+        transition: transform .3s;
+        transition: transform .3s, -webkit-transform .3s;
+        position: absolute;
+        z-index: 3;
+        top: 20%;
+        left: -2%;
+        right: -2%;
+        margin: 0;
+        background-color: #fa625f;
+        text-align: center;
+        border: 3px solid #fbf579;
+        border-radius: 10px;
     }
 
-.projects-grid > div h3 {
-            margin-top: 0;
-            text-align: center;
-            font-size: 3rem;
-        }
+.project-shell p {
+        z-index: 4;
+        position: absolute;
+        top: 35%;
+        left: 0;
+        right: 0;
+        text-align: center;
+        background-color: #fbf579;
+        border-top: 3px solid #fa625f;
+        border-bottom: 3px solid #fa625f;
+    }
 
-.projects-grid > div p {
-            text-align: center;
-        }
+.project-inner {
+    z-index: 1;
+    position: absolute;
+    top: 5%;
+    bottom: 5%;
+    left: 5%;
+    right: 5%;
+    border: 3rem solid #fa625f;
+    border-radius: 50%;
+}
 
-.projects-links {
+.project-links {
+    z-index: 2;
+    position: absolute;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -ms-flex-pack: distribute;
-        justify-content: space-around;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-transform: rotate(-10deg);
+            transform: rotate(-10deg);
+    -webkit-transition: -webkit-transform .3s;
+    transition: -webkit-transform .3s;
+    transition: transform .3s;
+    transition: transform .3s, -webkit-transform .3s;
+    top: 20%;
+    left: -1%;
+    right: -1%;
+    padding: 1%;
     background-color: #fa625f;
-    font-size: 1.5rem;
+    border: 2px solid #fbf579;
+    border-radius: 8px;
 }
 
-.projects-links a {
+.project-links a {
         text-decoration: none;
     }
 
-.projects-links a:hover {
+.project-links a:hover {
         color: #fbf579 ;
     }
+
+.project-hidden {
+    width: 90%;
+    height: auto;
+    padding: 0;
+    -webkit-transition: -webkit-transform .1s;
+    transition: -webkit-transform .1s;
+    transition: transform .1s;
+    transition: transform .1s, -webkit-transform .1s;
+}
+
+.project-hidden h3 {
+        position: static;
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+        border: 1rem solid #fa625f;
+        border-radius: 10px;
+        text-align: center;
+        margin: 2rem 0;
+    }
+
+.project-hidden div, .project-hidden p {
+        display: none;
+    }
+
+h3.collapse-cross, div.collapse-cross {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+    -webkit-transition: -webkit-transform .15s;
+    transition: -webkit-transform .15s;
+    transition: transform .15s;
+    transition: transform .15s, -webkit-transform .15s;
+}
+
+.project-hidden:hover {
+    -webkit-transform: translateX(-16px);
+            transform: translateX(-16px);
+    -webkit-transition: -webkit-transform .2s;
+    transition: -webkit-transform .2s;
+    transition: transform .2s;
+    transition: transform .2s, -webkit-transform .2s;
+}
 
 .skills {
     -webkit-box-orient: vertical;
@@ -245,69 +321,22 @@ i {
     }
 }
 
-@media screen
-and (min-aspect-ratio: 2/3){
+@media screen and (min-aspect-ratio: 2/3){
     html {
         font-size: 1.8vmin;
     }
 }
 
-@media screen
-and (min-aspect-ratio: 3/4) {
+@media screen and (min-aspect-ratio: 3/4) {
     html {
         font-size: 1.7vmin;
     }
 }
 
-@media screen
-and (min-aspect-ratio: 1/1) {
+@media screen and (min-aspect-ratio: 1/1) {
     html {
         font-size: 1.8vmin;
     }
-    .projects, footer {
-        height: 100vh;
-    }
-        .projects h2, footer h2 {
-            margin-bottom: 1%;
-        }
-    .projects-grid {
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: normal;
-            -ms-flex-direction: row;
-                flex-direction: row;
-        -ms-flex-pack: distribute;
-            justify-content: space-around;
-    }
-        .projects-grid > div {
-            width: 60vh;
-            height: 60vh;
-            margin: 0 1%;
-            padding: 2rem;
-        }
-            .projects-grid > div h3 {
-                font-size: 1.6rem;
-            }
-            .projects-grid > div p, .projects-grid > div a {
-                font-size: 1.3rem;
-            }
-
-    .project-hidden {
-        -webkit-writing-mode: vertical-lr;
-            -ms-writing-mode: tb-lr;
-                writing-mode: vertical-lr;
-        width: auto!important;
-        border-radius: 10px!important;
-        padding: 0!important;
-    }
-        .project-hidden h3 {
-            margin: 0!important;
-        }
-        .project-hidden div {
-            display: none;
-        }
-        .project-hidden p {
-            display: none;
-        }
 
     h1 {
         border: none;
@@ -328,15 +357,53 @@ and (min-aspect-ratio: 1/1) {
         }
 }
 
-@media screen
-and (min-aspect-ratio: 4/3){
+@media screen and (min-aspect-ratio: 4/3) {
     html {
         font-size: 2vmin;
     }
+
+    .projects-grid {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: row;
+                flex-direction: row;
+        -ms-flex-pack: distribute;
+            justify-content: space-around;
+    }
+
+    .project-shell {
+        height: 85vh;
+        width: 85vh;
+    }
+        .project-shell h3 {
+            font-size: 2.5rem;
+        }
+        .project-shell p, .project-shell a {
+            font-size: 2rem;
+        }
+        .project-links a {
+            font-size: 2rem;
+        }
+
+    .project-hidden {
+        -webkit-writing-mode: vertical-lr;
+            -ms-writing-mode: tb-lr;
+                writing-mode: vertical-lr;
+        width: 10%;
+        height: 90vh;
+    }
+
+    .project-hidden:hover {
+        -webkit-transform: translateY(-16px);
+                transform: translateY(-16px);
+        -webkit-transition: -webkit-transform .2s;
+        transition: -webkit-transform .2s;
+        transition: transform .2s;
+        transition: transform .2s, -webkit-transform .2s;
+    }
 }
 
-@media screen
-and (min-aspect-ratio: 3/2){
+@media screen and (min-aspect-ratio: 3/2){
     html {
         font-size: 2.5vmin;
     }
