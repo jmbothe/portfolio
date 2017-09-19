@@ -98,13 +98,14 @@ p, a {
     align-items: center;
 }
 
+
 .project-shell {
     position: relative;
-    height: 95vw;
-    width: 95vw;
+    height: 90vw;
+    width: 90vw;
+    transition: .5s ease;
     h3 {
         transform: rotate(18deg);
-        transition: transform .3s;
         position: absolute;
         z-index: 3;
         top: 20%;
@@ -114,7 +115,7 @@ p, a {
         background-color: #fa625f;
         text-align: center;
         border: 3px solid #fbf579;
-        border-radius: 10px;
+        transition: .5s ease;
     }
     p {
         z-index: 4;
@@ -126,6 +127,7 @@ p, a {
         background-color: #fbf579;
         border-top: 3px solid #fa625f;
         border-bottom: 3px solid #fa625f;
+        transition: .5s ease;
     }
 }
 
@@ -138,6 +140,7 @@ p, a {
     right: 5%;
     border: 3rem solid #fa625f;
     border-radius: 50%;
+    transition: .5s ease;
 }
 
 .project-links {
@@ -146,14 +149,13 @@ p, a {
     display: flex;
     justify-content: space-between;
     transform: rotate(-10deg);
-    transition: transform .3s;
     top: 20%;
     left: -1%;
     right: -1%;
     padding: 1%;
     background-color: #fa625f;
     border: 2px solid #fbf579;
-    border-radius: 8px;
+    transition: .5s ease;
     a {
         text-decoration: none;
     }
@@ -162,33 +164,52 @@ p, a {
     }
 }
 
-.project-hidden {
-    width: 90%;
-    height: auto;
-    padding: 0;
-    transition: transform .1s;
-    h3 {
-        position: static;
+.project-collapse {
+    width: 90vw;
+    transition: .5s ease;
+    h3, div.project-links {
         transform: rotate(0deg);
-        border: 1rem solid #fa625f;
-        border-radius: 10px;
+        background-color: #fa625f;
         text-align: center;
         margin: 2rem 0;
+        top: 0;
+        left: 5%;
+        right: 5%;
+        transition: .5s ease;
     }
-    div, p {
+    div.project-inner {
+        top: 50%;
+        bottom: 50%;
+        left: 50%;
+        right: 50%;
+        border-width: 0;
+        transition: .5s ease;
+    }
+    p {
+        opacity: 0;
+        transition: .5s ease;
+    }
+}
+
+.project-hide {
+    height: 15vh;
+    transition: transform .2s ease, height .5s ease;
+    p, div {
         display: none;
     }
 }
 
-h3.collapse-cross, div.collapse-cross {
-    transform: rotate(0deg);
-    transition: transform .15s;
-}
-
-.project-hidden:hover {
+.project-hide:hover {
     transform: translateX(-16px);
     transition: transform .2s;
 }
+
+
+
+
+
+
+
 
 .skills {
     flex-direction: column;
@@ -320,15 +341,15 @@ i {
         }
     }
 
-    .project-hidden {
+    .project-hide {
         writing-mode: vertical-lr;
         width: 10%;
         height: 90vh;
     }
 
-    .project-hidden:hover {
+    .project-hide:hover {
         transform: translateY(-16px);
-        transition: transform .2s;
+        transition: transform .2s ease;
     }
 }
 
