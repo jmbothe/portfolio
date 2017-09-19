@@ -98,7 +98,6 @@ p, a {
     align-items: center;
 }
 
-
 .project-shell {
     position: relative;
     height: 90vw;
@@ -169,10 +168,9 @@ p, a {
     transition: .5s ease;
     h3, div.project-links {
         transform: rotate(0deg);
-        background-color: #fa625f;
         text-align: center;
         margin: 2rem 0;
-        top: 0;
+        top: 10%;
         left: 5%;
         right: 5%;
         transition: .5s ease;
@@ -186,33 +184,33 @@ p, a {
         transition: .5s ease;
     }
     p {
-        opacity: 0;
+        top: 25%;
+        transform: scale(0);
         transition: .5s ease;
     }
 }
 
 .project-hide {
     height: 15vh;
-    transition: transform .2s ease, height .5s ease;
+    transition: transform .2s ease, height .5s ease, opacity .5s ease;
+    h3 {
+      transition: .2s;
+    }
     p, div {
         display: none;
     }
 }
 
 .project-hide:hover {
-    transform: translateX(-16px);
-    transition: transform .2s;
+    h3 {
+    transform: perspective(30px) translateZ(2px);
+    transition: .2s ease;
+    }
 }
-
-
-
-
-
-
-
 
 .skills {
     flex-direction: column;
+    height: 100vh;
     background-color: #fa625f;
     h2 {
         margin-top: 5%;
@@ -221,7 +219,6 @@ p, a {
         background-color: #fa625f;
     }
 }
-
 
 footer {
     @extend .projects;
@@ -324,36 +321,49 @@ i {
         justify-content: space-around;
     }
 
-    .project-shell {
-        height: 85vh;
-        width: 85vh;
-        h3 {
-            font-size: 2.5rem;
-        }
-        p, a {
-            font-size: 2rem;
-        }
+  .project-shell {
+    height: 85vh;
+    width: 85vh;
+    h3 {
+      font-size: 2.5rem;
+      transition: transform .5s ease;
     }
+    p, a {
+      font-size: 2rem;
+    }
+  }
 
-    .project-links {
-        a {
-            font-size: 2rem;
-        }
+  .project-links {
+    a {
+      font-size: 2rem;
     }
+  }
 
-    .project-hide {
-        writing-mode: vertical-lr;
-        width: 10%;
-        height: 90vh;
+  .project-collapse {
+    h3, div.project-links {
+      top: 15%;
     }
+    transition: 0s;
+  }
 
-    .project-hide:hover {
-        transform: translateY(-16px);
-        transition: transform .2s ease;
+  .project-hide {
+    writing-mode: vertical-lr;
+    width: 10%;
+    height: 90vh;
+    h3 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: 7%;
+      left: 20%;
+      right: 20%;
+      bottom: 7%;
+      opacity: 1;
     }
+  }
 }
 
-@media screen and (min-aspect-ratio: 3/2){
+@media screen and (min-aspect-ratio: 3/2) {
     html {
         font-size: 2.5vmin;
     }
