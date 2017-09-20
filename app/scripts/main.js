@@ -1,7 +1,74 @@
 
 
 jQuery(($) => {
-  const model = {};
+  const canvas = document.querySelector('canvas');
+  const context = canvas.getContext('2d');
+
+  const model = {
+
+    activeSkills: [],
+
+    getAspectRatio: function getAspectRatio() {
+      const width =
+      Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+      const height =
+      Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+      return { x: width, y: height }
+    },
+
+    random: function random(min, max) {
+      const num = Math.floor(Math.random() * (max - min)) + min;
+      return num;
+    },
+
+    skillModule: function skillModule() {
+      const skillList = [
+        'ES6', 'CSS3', 'HTML5', 'Gulp', 'MVC', 'JavaScript', 'Foundation', 'Bootstrap',
+        'Node.js', 'npm', 'postcss', 'bash', 'git', 'gitHub', 'Photoshop', 'DRY code',
+        'clean code', 'self-documenting code', 'mobile-first', 'responsive design',
+        'functional programming', 'object-oriented programming', 'hella APIs',
+        'click me', 'Atom', 'Visual Studio Code',
+      ];
+      this.counter = this.counter || 0;
+      this.counter++;
+      const skill = skillList[this.counter % skillList.length];
+
+      const colors = ['hsl(290, 6%, 18%)', '#fbf579'];
+      const color = colors[this.random(0, colors.length)];
+
+      const aspect = this.getAspectRatio();
+      const font =
+        this.random((aspect.x / aspect.y) * 20, (aspect.x / aspect.y) * 40);
+      context.font = `${font}px sans-serif`;
+      const textWidth = context.measureText(skill).width;
+
+      let x = this.random(0, aspect.x - textWidth);
+      let y = aspect.y + 60;
+      let speed = this.random(1, 4);
+
+      function draw() {
+        context.font = `${font}px sans-serif`;
+        context.fillStyle = color;
+        context.fillText(skill, x, y);
+      }
+
+      function update() {
+        y -= speed;
+      }
+
+      function getY() {
+        return y;
+      }
+
+      return {
+        draw: draw,
+        update: update,
+        getY: getY,
+        skill: skill,
+      };
+    },
+  };
 
   const view = {
     windowIsShortLandscape: function windowIsShortLandscape() {
@@ -15,13 +82,13 @@ jQuery(($) => {
 
     hideProject: function hideProject(current, target) {
       if (this.windowIsShortLandscape()) {
-        target.children('h3, .project-links').animate({opacity: 0}, 300);
+        target.children('h3, .project-links').animate({ opacity: 0 }, 300);
       }
       current.addClass('project-collapse');
       setTimeout(() => {
         current.addClass('project-hide');
         if (this.windowIsShortLandscape()) {
-          current.css('opacity', 0).animate({opacity: 1}, 300);
+          current.css('opacity', 0).animate({ opacity: 1 }, 300);
         }
       }, 400);
     },
@@ -40,6 +107,7 @@ jQuery(($) => {
   const controller = {
     initialize: function initialize() {
       this.setupListeners();
+      this.canvasLoop();
     },
 
     setupListeners: function setupListeners() {
@@ -60,94 +128,31 @@ jQuery(($) => {
         view.showProject(current, target);
       }, 400);
     },
+
+    canvasLoop: function canvasLoop(updateTime = performance.now()) {
+      const width = canvas.width =  model.getAspectRatio().x;
+      const height = canvas.height = model.getAspectRatio().y;
+
+      context.fillStyle = 'rgba(250, 98, 95, 1)';
+      context.fillRect(0, 0, width, height);
+
+      // timing function to create new word
+      while(updateTime + 1000 < performance.now()) {
+        const skill = model.skillModule();
+        model.activeSkills.push(skill);
+        updateTime = performance.now();
+      }
+
+      for (let j = 0; j < model.activeSkills.length; j++) {
+        model.activeSkills[j].draw.call(model);
+        model.activeSkills[j].update.call(model);
+        if (model.activeSkills[j].getY.call(model) < 0) {
+          model.activeSkills.splice(j, 1);
+        }
+      }
+      requestAnimationFrame(canvasLoop.bind(null, updateTime));
+    },
   };
 
   controller.initialize();
 });
-
-
-
-
-
-const canvas = document.querySelector('canvas');
-const context = canvas.getContext('2d');
-
-const width = canvas.width = 
-Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-const height = canvas.height = 
-Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-
-function random(min, max) {
-  var num = Math.floor(Math.random()*(max-min)) + min;
-  return num;
-}
-
-
-
-
-function skillModule() {
-  const skillList = [
-    'ES6', 'CSS3', 'HTML5', 'Gulp', 'MVC', 'JavaScript', 'Foundation', 'Bootstrap',
-    'Node.js', 'npm', 'postcss', 'bash', 'git', 'gitHub', 'Photoshop', 'DRY code',
-    'clean code', 'self-documenting code', 'mobile-first', 'responsive design',
-    'functional programming', 'object-oriented programming', 'hella APIs'
-  ];
-  const colors = ['hsl(290, 6%, 18%)', '#fbf579'];
-
-  let y = height + 60;
-  const speed = random(1, 4)
-  const color = colors[random(0, colors.length)]
-  const skill = skillList[random(0, skillList.length)]
-
-  function getY() {
-    return y;
-  }
-
-  context.font = 'bold 5rem Open Sans';
-  let textWidth = context.measureText(skill).width
-  const x = random(0, width - textWidth)
-
-  function draw() {
-    context.fillStyle = color;
-    context.fillText(skill, x, y);
-  }
-
-  function update() {
-    y -= speed;
-  }
-
-  return {
-    draw: draw,
-    update: update,
-    getY: getY,
-    skill: skill,
-
-  }
-}
-
-let skills = [];
-
-function loop(updateTime = performance.now()) {
-  context.fillStyle = 'rgba(250, 98, 95, 1)';
-  context.fillRect(0, 0, width, height);
-
-  // timing function to create new word
-  while(updateTime + 1000 < performance.now()) {
-    const skill = skillModule()
-    if (!skills.some(item => item.skill === skill.skill)) {
-      skills.push(skill);
-      updateTime = performance.now()
-    }
-  }
-
-  for (let j = 0; j < skills.length; j++) {
-    skills[j].draw();
-    skills[j].update();
-    if (skills[j].getY() < 0) {
-      skills.splice(j, 1);
-    }
-  }
-  requestAnimationFrame(loop.bind(null, updateTime));
-}
-
-loop()
