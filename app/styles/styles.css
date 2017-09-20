@@ -209,14 +209,15 @@ p, a {
 }
 
 .skills {
+  position: relative;
     flex-direction: column;
     height: 100vh;
-    background-color: #fa625f;
     h2 {
+        position: absolute;
         margin-top: 5%;
         margin-bottom: 5%;
         font-size: 9rem;
-        background-color: #fa625f;
+        background: transparent;
     }
 }
 
