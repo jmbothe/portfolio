@@ -34,37 +34,62 @@ jQuery(($) => {
       this.counter++;
       const skill = skillList[this.counter % skillList.length];
 
-      const colors = ['hsl(290, 6%, 18%)', '#fbf579'];
-      const color = colors[this.random(0, colors.length)];
-
       const aspect = this.getAspect();
       const font =
         this.random((aspect.x / aspect.y) * 20, (aspect.x / aspect.y) * 40);
-      context.font = `${font}px sans-serif`;
+      context.font = `${font}px Archivo Black`;
       const textWidth = context.measureText(skill).width;
 
       let x = this.random(0, aspect.x - textWidth);
+      let originalX = x;
       let y = aspect.y + 60;
-      let speed = this.random(1, 4);
+      let velY = this.random(1, 4);
+      let velX = 1;
+
+      const grd = context.createLinearGradient(x, y, textWidth, 0);
+      grd.addColorStop(0.14, '#FF0000'); 
+      grd.addColorStop(0.285714286, '#FF7F00'); 
+      grd.addColorStop(0.428571429, '#FFFF00'); 
+      grd.addColorStop(0.571428571, '#00FF00'); 
+      grd.addColorStop(0.714285714, '#0000FF'); 
+      grd.addColorStop(0.857142857, '#4B0082'); 
+      grd.addColorStop(1.0, '#8F00FF');
+
+      const colors = ['hsl(290, 6%, 18%)', '#fbf579', grd];
+      const color = colors[this.random(0, colors.length)];
 
       function draw() {
-        context.font = `${font}px sans-serif`;
+        context.font = `${font}px Archivo Black`;
         context.fillStyle = color;
         context.fillText(skill, x, y);
       }
 
       function update() {
-        y -= speed;
+        if ((x + textWidth) >= originalX + textWidth + 30) {
+          velX = -velX;
+        }
+      
+        if ((x) <= originalX - 30) {
+          velX = -(velX);
+        }
+
+        x += velX;
+        y -= velY;
       }
 
       function getY() {
         return y;
       }
 
+      function getX() {
+        return x;
+      }
+
       return {
         draw: draw,
         update: update,
         getY: getY,
+        getX: getX,
         skill: skill,
       };
     },
