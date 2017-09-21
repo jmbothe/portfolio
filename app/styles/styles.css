@@ -53,7 +53,8 @@ p, a {
 
 .knockout {
     background: url('../assets/hero-background.jpg')no-repeat;
-    background-size: cover;
+    background-attachment: fixed;
+    background-size: 100% auto;
     width: 100%;
 }
 
@@ -176,10 +177,7 @@ p, a {
         transition: .5s ease;
     }
     div.project-inner {
-        top: 50%;
-        bottom: 50%;
-        left: 50%;
-        right: 50%;
+        transform: scale(0);
         border-width: 0;
         transition: .5s ease;
     }
