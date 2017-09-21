@@ -8,7 +8,7 @@
 }
 
 html {
-    font-size: 2vmin;
+    font-size: 1.9vw;
 }
 
 body {
@@ -238,7 +238,7 @@ p, a {
     }
 
 .project-hide {
-    height: 15vh;
+    height: 12rem;
     -webkit-transition: height .5s ease, opacity .5s ease, -webkit-transform .2s ease;
     transition: height .5s ease, opacity .5s ease, -webkit-transform .2s ease;
     transition: transform .2s ease, height .5s ease, opacity .5s ease;
@@ -337,25 +337,25 @@ i {
     }
     .knockout {
         width: auto;
-        height: 100vh;
+        height: 100%;
     }
 }
 
 @media screen and (min-aspect-ratio: 2/3){
     html {
-        font-size: 1.8vmin;
+        font-size: 1.8vw;
     }
 }
 
 @media screen and (min-aspect-ratio: 3/4) {
     html {
-        font-size: 1.7vmin;
+        font-size: 1.7vw;
     }
 }
 
 @media screen and (min-aspect-ratio: 1/1) {
     html {
-        font-size: 1.8vmin;
+        font-size: 1.8vw;
     }
 
     h1 {
@@ -379,7 +379,7 @@ i {
 
 @media screen and (min-aspect-ratio: 4/3) {
     html {
-        font-size: 2vmin;
+        font-size: 1.5vw;
     }
 
     .projects-grid {
@@ -392,8 +392,8 @@ i {
     }
 
   .project-shell {
-    height: 85vh;
-    width: 85vh;
+    height: 50vw;
+    width: 50vw;
   }
     .project-shell h3 {
       font-size: 2.5rem;
@@ -421,8 +421,7 @@ i {
     -webkit-writing-mode: vertical-lr;
         -ms-writing-mode: tb-lr;
             writing-mode: vertical-lr;
-    width: 10%;
-    height: 90vh;
+    width: 11%;
   }
     .project-hide h3 {
       display: -webkit-box;
@@ -444,6 +443,6 @@ i {
 
 @media screen and (min-aspect-ratio: 3/2) {
     html {
-        font-size: 2.5vmin;
+        font-size: 1.3vw;
     }
 }

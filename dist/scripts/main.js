@@ -1,20 +1,20 @@
-
-
 jQuery(($) => {
   const canvas = document.querySelector('canvas');
   const context = canvas.getContext('2d');
 
   const model = {
-
     activeSkills: [],
 
-    getAspectRatio: function getAspectRatio() {
-      const width =
-      Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-      const height =
-      Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    // in the event I want dimensions that DONT update on viewport changes
+    viewHeight: $(window).height(),
+    viewWidth: $(window).width(),
 
-      return { x: width, y: height }
+    // in the event that I DO want the latest and greatest dimensions
+    getAspect: function getAspect() {
+      const x = $(window).width();
+      const y = $(window).height();
+
+      return { x, y };
     },
 
     random: function random(min, max) {
@@ -37,7 +37,7 @@ jQuery(($) => {
       const colors = ['hsl(290, 6%, 18%)', '#fbf579'];
       const color = colors[this.random(0, colors.length)];
 
-      const aspect = this.getAspectRatio();
+      const aspect = this.getAspect();
       const font =
         this.random((aspect.x / aspect.y) * 20, (aspect.x / aspect.y) * 40);
       context.font = `${font}px sans-serif`;
@@ -72,12 +72,7 @@ jQuery(($) => {
 
   const view = {
     windowIsShortLandscape: function windowIsShortLandscape() {
-      const width =
-        Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-      const height =
-        Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-
-      return (width / height) >= (4 / 3);
+      return (model.getAspect().x / model.getAspect().y) >= (4 / 3);
     },
 
     hideProject: function hideProject(current, target) {
@@ -108,10 +103,21 @@ jQuery(($) => {
     initialize: function initialize() {
       this.setupListeners();
       this.canvasLoop();
+      this.setViewportHeight();
     },
 
     setupListeners: function setupListeners() {
       $('.projects-grid').on('click', '.project-hide', this.toggleProject);
+      $(window).on('orientationchange', this.updateViewportHeight.bind(this));
+    },
+
+    setViewportHeight: function setViewportHeight() {
+      $('.hero, .skills').css({ height: model.getAspect().y });
+    },
+
+    updateViewportHeight: function updateViewportHeight() {
+      model.viewHeight = model.getAspect().y;
+      this.setViewportHeight();
     },
 
     toggleProject: function toggleProject(e) {
@@ -130,8 +136,8 @@ jQuery(($) => {
     },
 
     canvasLoop: function canvasLoop(updateTime = performance.now()) {
-      const width = canvas.width =  model.getAspectRatio().x;
-      const height = canvas.height = model.getAspectRatio().y;
+      const width = canvas.width =  model.getAspect().x;
+      const height = canvas.height = model.viewHeight;
 
       context.fillStyle = 'rgba(250, 98, 95, 1)';
       context.fillRect(0, 0, width, height);
