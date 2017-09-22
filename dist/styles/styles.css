@@ -136,8 +136,8 @@ p, a {
         position: absolute;
         z-index: 3;
         top: 20%;
-        left: -2%;
-        right: -2%;
+        left: -3%;
+        right: -3%;
         margin: 0;
         background-color: #fa625f;
         text-align: center;
@@ -185,9 +185,9 @@ p, a {
     -webkit-transform: rotate(-10deg);
             transform: rotate(-10deg);
     top: 20%;
-    left: -1%;
-    right: -1%;
-    padding: 1%;
+    left: -3%;
+    right: -3%;
+    padding: 1% 10%;
     background-color: #fa625f;
     border: 2px solid #fbf579;
     -webkit-transition: .5s ease;
