@@ -7,7 +7,7 @@ jQuery(($) => {
       'Node.js', 'npm', 'postcss', 'bash', 'git', 'gitHub', 'Photoshop', 'DRY code',
       'clean code', 'self-documenting code', 'mobile-first', 'responsive design',
       'functional programming', 'object-oriented programming', 'hella APIs',
-      'click me', 'Atom', 'Visual Studio Code',
+      'Atom', 'Visual Studio Code',
     ],
     activeSkills: [],
     skillColors: ['hsl(290, 6%, 18%)', '#fbf579'],
