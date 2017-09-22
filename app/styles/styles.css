@@ -3,7 +3,10 @@
     font-weight: 800;
     color: hsl(290, 6%, 18%);
     box-sizing: border-box;
-    cursor: default;
+}
+
+p, h1, h2, h3 {
+  cursor: default;
 }
 
 html {

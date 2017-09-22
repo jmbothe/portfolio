@@ -42,7 +42,7 @@ jQuery(($) => {
       const textWidth = this.context.measureText(flame).width;
 
       let x = this.random(0 - textWidth, aspect.x);
-      let y = aspect.y + 60;
+      let y = aspect.y + font;
       let velY = this.random(1, 4);
 
       const color = `hsla(${this.random(0, 57)}, 94%, 73%, ${this.random(7, 11) * 0.1})`;
@@ -83,7 +83,7 @@ jQuery(($) => {
       const textWidth = this.context.measureText(skill).width;
 
       let x = this.random(0, aspect.x - textWidth);
-      let y = aspect.y + 60;
+      let y = aspect.y + font;
       let velY = this.random(1, 4);
 
       const color = this.skillColors[this.random(0, this.skillColors.length)];
