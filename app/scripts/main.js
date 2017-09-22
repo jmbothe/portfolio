@@ -2,6 +2,7 @@ jQuery(($) => {
   const model = {
     canvas: document.querySelector('canvas'),
     context: document.querySelector('canvas').getContext('2d'),
+
     skillList: [
       'ES6', 'CSS3', 'HTML5', 'Gulp', 'MVC', 'JavaScript', 'Foundation', 'Bootstrap',
       'Node.js', 'npm', 'postcss', 'bash', 'git', 'gitHub', 'Photoshop', 'DRY code',
@@ -12,8 +13,8 @@ jQuery(($) => {
     activeSkills: [],
     skillColors: ['hsl(290, 6%, 18%)', '#fbf579'],
 
-    flameList: ['.', '°', '•', '̑'],
-    activeFlames: [],
+    activeFlames: { a: [], b: [], c: [], d: [] },
+    flameColors: ['hsla(57, 94%, 73%, 1)', 'hsla(57, 94%, 73%, .75)', 'hsla(57, 94%, 73%, .5)', 'hsla(57, 94%, 73%, .25)'],
 
     // in the event I want dimensions that DONT update on viewport changes
     viewHeight: $(window).height(),
@@ -32,25 +33,16 @@ jQuery(($) => {
       return num;
     },
 
-    flameModule: function flameModule() {
-      const flame = this.flameList[this.random(0, this.flameList.length)];
-
+    flameModule: function flameModule2() {
       const aspect = this.getAspect();
-      const font =
-        this.random((aspect.x / aspect.y) * 35, (aspect.x / aspect.y) * 70);
-      this.context.font = `${font}px Open Sans`;
-      const textWidth = this.context.measureText(flame).width;
-
-      let x = this.random(0 - textWidth, aspect.x);
-      let y = aspect.y + font;
-      let velY = this.random(1, 4);
-
-      const color = `hsla(${this.random(0, 57)}, 94%, 73%, ${this.random(7, 11) * 0.1})`;
+      let r = this.random(2, 9);
+      let x = this.random(0, aspect.x);
+      let y = aspect.y - r;
+      let velY = this.random(1, 3);
 
       function draw() {
-        this.context.font = `${font}px Open Sans`;
-        this.context.fillStyle = color;
-        this.context.fillText(flame, x, y);
+        this.context.moveTo(x + r, y);
+        this.context.arc(x, y, r, 0, Math.PI * 2, true);
       }
 
       function update() {
@@ -64,10 +56,8 @@ jQuery(($) => {
       return {
         draw: draw,
         update: update,
-        flame: flame,
         getY: getY,
         x: x,
-        color: color,
       };
     },
 
@@ -194,21 +184,62 @@ jQuery(($) => {
       const flame = model.flameModule();
       const flame2 = model.flameModule();
       const flame3 = model.flameModule();
-      model.activeFlames.push(flame);
-      model.activeFlames.push(flame2);
-      model.activeFlames.push(flame3);
+      model.activeFlames.a.push(flame);
+      model.activeFlames.b.push(flame2);
+      model.activeFlames.c.push(flame3);
+      const flame4 = model.flameModule();
+      model.activeFlames.d.push(flame);
 
-      model.activeFlames.forEach((item) => {
+      model.context.lineWidth = 3;
+
+      model.context.strokeStyle = model.flameColors[0];
+      model.context.beginPath();
+      model.activeFlames.a.forEach((item) => {
         item.draw.call(model);
         item.update.call(model);
       });
+      model.context.stroke();
+      model.context.closePath();
+
+      model.context.fillStyle = model.flameColors[1];
+      model.context.beginPath();
+      model.activeFlames.b.forEach((item) => {
+        item.draw.call(model);
+        item.update.call(model);
+      });
+      model.context.fill();
+      model.context.closePath();
+
+      model.context.strokeStyle = model.flameColors[2];
+      model.context.beginPath();
+      model.activeFlames.c.forEach((item) => {
+        item.draw.call(model);
+        item.update.call(model);
+      });
+      model.context.stroke();
+      model.context.closePath();
 
       model.activeSkills.forEach((item) => {
         item.draw.call(model);
         item.update.call(model);
       });
 
-      model.activeFlames = model.activeFlames.filter(item =>
+      model.context.fillStyle = model.flameColors[3];
+      model.context.beginPath();
+      model.activeFlames.d.forEach((item) => {
+        item.draw.call(model);
+        item.update.call(model);
+      });
+      model.context.fill();
+      model.context.closePath();
+
+      model.activeFlames.a = model.activeFlames.a.filter(item =>
+        !(item.getY.call(model) < height - model.random(50, 800)));
+      model.activeFlames.b = model.activeFlames.b.filter(item =>
+        !(item.getY.call(model) < height - model.random(50, 800)));
+      model.activeFlames.c = model.activeFlames.c.filter(item =>
+        !(item.getY.call(model) < height - model.random(50, 800)));
+      model.activeFlames.d = model.activeFlames.d.filter(item =>
         !(item.getY.call(model) < height - model.random(50, 800)));
 
       model.activeSkills = model.activeSkills.filter(item =>
