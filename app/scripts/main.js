@@ -234,30 +234,32 @@ jQuery(($) => {
   controller.initialize();
 });
 
+// clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+
+// clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+
+
+// let percent = scroll - ($('.secret').offset().top + ($('.secret').height() * .1))
+
+function reveal(element, position, scroll) {
+  const top = $('.secret').offset().top;
+  const anchor = $('.secret').height() * position;
+
+  if (scroll > top + position) {
+    const percent = 100 - ((scroll - (top + anchor)) * 0.1);
+    $(`${element}`).css('clip-path', `polygon(0% ${percent}%, 100% ${percent}%, 100% 100%, 0% 100%)`);
+  } else {
+    $(`${element}`).css('clip-path', 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)');
+  }
+}
+
 
 $(window).on('scroll', () => {
   let scroll = $(window).scrollTop();
-  if (scroll > $('.secret').offset().top + 5000) {
-    $('.dont').show();
-  } else {
-    $('.dont').hide();
-  }
 
-  if (scroll > $('.secret').offset().top + 10000) {
-    $('.stop').show();
-  } else {
-    $('.stop').hide();
-  }
+  reveal('.dont', 0.1, scroll);
+  reveal('.stop', 0.3, scroll);
+  reveal('.me', 0.5, scroll);
+  reveal('.now', 0.7, scroll);
 
-  if (scroll > $('.secret').offset().top + 15000) {
-    $('.me').show();
-  } else {
-    $('.me').hide();
-  }
-
-  if (scroll > $('.secret').offset().top + 20000) {
-    $('.now').show();
-  } else {
-    $('.now').hide();
-  }
 })
