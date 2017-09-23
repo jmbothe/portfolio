@@ -79,10 +79,19 @@ p, a {
 }
 
 .about {
+  overflow: hidden;
+  position: relative;
     flex-direction: column;
     background: linear-gradient(#fbf579, #fa625f);
     p {
+      z-index: 1;
         font-size: 7rem;
+    }
+    h2 {
+      position: absolute;
+      z-index: 0;
+      color: #fbf579;
+      font-size: 20rem;
     }
 }
 
@@ -211,7 +220,6 @@ p, a {
 
 .skills {
   position: relative;
-    flex-direction: column;
     height: 100vh;
     h2 {
         position: absolute;
