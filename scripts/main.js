@@ -1,7 +1,9 @@
+var rellax = new Rellax('.rellax');
+
 jQuery(($) => {
   const model = {
-    canvas: document.querySelector('canvas'),
-    context: document.querySelector('canvas').getContext('2d'),
+    canvas: null,
+    context: null,
 
     skillList: [
       'ES6', 'CSS3', 'HTML5', 'Gulp', 'MVC', 'JavaScript', 'Foundation', 'Bootstrap',
@@ -14,66 +16,31 @@ jQuery(($) => {
     skillColors: ['hsl(290, 6%, 18%)', '#fbf579'],
 
     activeFlames: { a: [], b: [], c: [], d: [] },
-    flameColors: ['hsla(57, 94%, 73%, 1)', 'hsla(57, 94%, 73%, .75)', 'hsla(57, 94%, 73%, .5)', 'hsla(57, 94%, 73%, .25)'],
-
-    // in the event I want dimensions that DONT update on viewport changes
-    viewHeight: $(window).height(),
-    viewWidth: $(window).width(),
-
-    // in the event that I DO want the latest and greatest dimensions
-    getAspect: function getAspect() {
-      const x = $(window).width();
-      const y = $(window).height();
-
-      return { x, y };
-    },
+    flameColors: [
+      'hsla(57, 94%, 73%, 1)',
+      'hsla(57, 94%, 73%, .75)',
+      'hsla(57, 94%, 73%, .5)',
+      'hsla(57, 94%, 73%, .25)',
+    ],
+    drawMethod: 'fill',
+    drawStyle: 'strokeStyle',
 
     random: function random(min, max) {
       const num = Math.floor(Math.random() * (max - min)) + min;
       return num;
     },
 
-    flameModule: function flameModule2() {
-      const aspect = this.getAspect();
-      let r = this.random(2, 9);
-      let x = this.random(0, aspect.x);
-      let y = aspect.y - r;
-      let velY = this.random(1, 3);
-
-      function draw() {
-        this.context.moveTo(x + r, y);
-        this.context.arc(x, y, r, 0, Math.PI * 2, true);
-      }
-
-      function update() {
-        y -= velY;
-      }
-
-      function getY() {
-        return y;
-      }
-
-      return {
-        draw: draw,
-        update: update,
-        getY: getY,
-        x: x,
-      };
-    },
-
-    skillModule: function skillModule() {
+    skillModule: function skillModule(aspect) {
       this.counter = this.counter || 0;
       this.counter++;
       const skill = this.skillList[this.counter % this.skillList.length];
 
-      const aspect = this.getAspect();
-      const font =
-        this.random((aspect.x / aspect.y) * 20, (aspect.x / aspect.y) * 40);
+      const font = this.random((aspect) * 20, (aspect) * 40);
       this.context.font = `${font}px Archivo Black`;
       const textWidth = this.context.measureText(skill).width;
 
-      let x = this.random(0, aspect.x - textWidth);
-      let y = aspect.y + font;
+      let x = this.random(0, this.canvas.width - textWidth);
+      let y = this.canvas.height + font;
       let velY = this.random(1, 4);
 
       const color = this.skillColors[this.random(0, this.skillColors.length)];
@@ -83,37 +50,62 @@ jQuery(($) => {
         this.context.fillStyle = color;
         this.context.fillText(skill, x, y);
       }
-
       function update() {
         y -= velY;
       }
-
       function getY() {
         return y;
       }
 
-      return {
-        draw: draw,
-        update: update,
-        getY: getY,
-        skill: skill,
-        
-      };
+      return { draw, update, getY, skill };
+    },
+
+    flameModule: function flameModule(aspect) {
+      let r = this.random((aspect) * 2, (aspect) * 12);
+      let x = this.random(0, this.canvas.width);
+      let y = this.canvas.height - r;
+      let velY = this.random(1, 3);
+
+      function define() {
+        this.context.moveTo(x + r, y);
+        this.context.arc(x, y, r, 0, Math.PI * 2, true);
+      }
+      function update() {
+        y -= velY;
+      }
+      function getY() {
+        return y;
+      }
+
+      return { define, update, getY };
+    },
+
+    fillFlameArray: function fillFlameArray(arr, aspect) {
+      const flame = this.flameModule(aspect);
+      while (arr.length < 30) {
+        arr.push(flame);
+      }
+    },
+
+    drawFlames: function drawFlames(width, arr, style, color, drawMethod) {
+      this.context.lineWidth = width + 3;
+      this.context[style] = color;
+      this.context.beginPath();
+      arr.forEach((item) => {
+        item.define.call(model);
+        item.update.call(model);
+      });
+      this.context[drawMethod]();
+      this.context.closePath();
     },
   };
 
   const view = {
-    setViewportHeight: function setViewportHeight() {
-      $('.hero, .skills').css({ height: model.getAspect().y });
-    },
-
-    updateViewportHeight: function updateViewportHeight() {
-      model.viewHeight = model.getAspect().y;
-      this.setViewportHeight();
-    },
+    viewHeight: null,
+    viewWidth: null,
 
     windowIsShortLandscape: function windowIsShortLandscape() {
-      return (model.getAspect().x / model.getAspect().y) >= (4 / 3);
+      return (this.viewWidth / this.viewHeight) >= (4 / 3);
     },
 
     hideProject: function hideProject(current, target) {
@@ -142,14 +134,49 @@ jQuery(($) => {
 
   const controller = {
     initialize: function initialize() {
+      model.canvas = document.querySelector('canvas');
+      model.context = model.canvas.getContext('2d');
+      this.setCanvasDimensions(true, true);
+      this.setViewDimensions();
       this.setupListeners();
       this.canvasLoop();
-      view.setViewportHeight();
+      this.setSectionsHeight();
     },
 
     setupListeners: function setupListeners() {
+      $(window).on('resize', this.setViewDimensions.bind(this))
+        .on('resize', this.setCanvasDimensions.bind(this, true, false))
+        .on('orientationchange', this.setViewDimensions.bind(this))
+        .on('orientationchange', this.setCanvasDimensions.bind(this, true, true))
+        .on('orientationchange', this.setSectionsHeight);
+
       $('.projects-grid').on('click', '.project-hide', this.toggleProject);
-      $(window).on('orientationchange', view.updateViewportHeight.bind(view));
+    },
+
+    getViewDimensions: function getViewDimensions() {
+      return { x: $(window).width(), y: $(window).height() };
+    },
+
+    setViewDimensions: function setViewDimensions() {
+      view.viewWidth = this.getViewDimensions().x;
+      view.viewHeight = this.getViewDimensions().y;
+    },
+
+    setCanvasDimensions: function setCanvasDimensions(x, y) {
+      if (x) model.canvas.width = this.getViewDimensions().x;
+      if (y) model.canvas.height = this.getViewDimensions().y;
+    },
+
+    getViewAspect: function getViewAspect() {
+      return this.getViewDimensions().x / this.getViewDimensions().y;
+    },
+
+    getCanvasAspect: function getCanvasAspect() {
+      return model.canvas.width / model.canvas.height;
+    },
+
+    setSectionsHeight: function setSectionsHeight() {
+      $('.hero, .skills').css({ height: view.viewHeight });
     },
 
     toggleProject: function toggleProject(e) {
@@ -167,85 +194,41 @@ jQuery(($) => {
       }, 400);
     },
 
-    canvasLoop: function canvasLoop(updateTime = performance.now(), updateTime2 = performance.now()) {
-      const width = model.canvas.width =  model.getAspect().x;
-      const height = model.canvas.height = model.viewHeight;
+    canvasLoop: function canvasLoop(updateTime = performance.now()) {
+      const width = model.canvas.width;
+      const height = model.canvas.height;
 
       model.context.fillStyle = 'rgba(250, 98, 95, 1)';
       model.context.fillRect(0, 0, width, height);
 
-      // timing to create new word
       while(updateTime + 1000 < performance.now()) {
-        const skill = model.skillModule();
+        const skill = model.skillModule(this.getCanvasAspect());
         model.activeSkills.push(skill);
         updateTime = performance.now();
       }
-
-      const flame = model.flameModule();
-      const flame2 = model.flameModule();
-      const flame3 = model.flameModule();
-      model.activeFlames.a.push(flame);
-      model.activeFlames.b.push(flame2);
-      model.activeFlames.c.push(flame3);
-      const flame4 = model.flameModule();
-      model.activeFlames.d.push(flame);
-
-      model.context.lineWidth = 3;
-
-      model.context.strokeStyle = model.flameColors[0];
-      model.context.beginPath();
-      model.activeFlames.a.forEach((item) => {
-        item.draw.call(model);
-        item.update.call(model);
-      });
-      model.context.stroke();
-      model.context.closePath();
-
-      model.context.fillStyle = model.flameColors[1];
-      model.context.beginPath();
-      model.activeFlames.b.forEach((item) => {
-        item.draw.call(model);
-        item.update.call(model);
-      });
-      model.context.fill();
-      model.context.closePath();
-
-      model.context.strokeStyle = model.flameColors[2];
-      model.context.beginPath();
-      model.activeFlames.c.forEach((item) => {
-        item.draw.call(model);
-        item.update.call(model);
-      });
-      model.context.stroke();
-      model.context.closePath();
 
       model.activeSkills.forEach((item) => {
         item.draw.call(model);
         item.update.call(model);
       });
 
-      model.context.fillStyle = model.flameColors[3];
-      model.context.beginPath();
-      model.activeFlames.d.forEach((item) => {
-        item.draw.call(model);
-        item.update.call(model);
-      });
-      model.context.fill();
-      model.context.closePath();
-
-      model.activeFlames.a = model.activeFlames.a.filter(item =>
-        !(item.getY.call(model) < height - model.random(50, 800)));
-      model.activeFlames.b = model.activeFlames.b.filter(item =>
-        !(item.getY.call(model) < height - model.random(50, 800)));
-      model.activeFlames.c = model.activeFlames.c.filter(item =>
-        !(item.getY.call(model) < height - model.random(50, 800)));
-      model.activeFlames.d = model.activeFlames.d.filter(item =>
-        !(item.getY.call(model) < height - model.random(50, 800)));
-
       model.activeSkills = model.activeSkills.filter(item =>
         !(item.getY.call(model) < 0));
 
-      requestAnimationFrame(canvasLoop.bind(null, updateTime, updateTime2));
+      Object.values(model.activeFlames).forEach((item, index) => {
+        model.drawStyle = model.drawStyle === 'strokeStyle' ? 'fillStyle' : 'strokeStyle';
+        model.drawMethod = model.drawMethod === 'fill' ? 'stroke' : 'fill';
+
+        model.fillFlameArray(item, this.getCanvasAspect());
+        model.drawFlames(index, item, model.drawStyle, model.flameColors[index], model.drawMethod);
+      });
+
+      Object.keys(model.activeFlames).forEach((key) => {
+        model.activeFlames[key] = model.activeFlames[key]
+          .filter(item => !(item.getY.call(model) < height - model.random(50, 800)));
+      });
+
+      requestAnimationFrame(canvasLoop.bind(this, updateTime));
     },
   };
   controller.initialize();

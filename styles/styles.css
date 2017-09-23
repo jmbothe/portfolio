@@ -88,6 +88,8 @@ p, a {
     }
 
 .about {
+  overflow: hidden;
+  position: relative;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
@@ -97,7 +99,15 @@ p, a {
 }
 
 .about p {
+      z-index: 1;
         font-size: 7rem;
+    }
+
+.about h2 {
+      position: absolute;
+      z-index: 0;
+      color: #fbf579;
+      font-size: 20rem;
     }
 
 .projects, footer {
@@ -265,10 +275,6 @@ p, a {
 
 .skills {
   position: relative;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
     height: 100vh;
 }
 
