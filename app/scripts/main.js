@@ -233,3 +233,31 @@ jQuery(($) => {
   };
   controller.initialize();
 });
+
+
+$(window).on('scroll', () => {
+  let scroll = $(window).scrollTop();
+  if (scroll > $('.secret').offset().top + 5000) {
+    $('.dont').show();
+  } else {
+    $('.dont').hide();
+  }
+
+  if (scroll > $('.secret').offset().top + 10000) {
+    $('.stop').show();
+  } else {
+    $('.stop').hide();
+  }
+
+  if (scroll > $('.secret').offset().top + 15000) {
+    $('.me').show();
+  } else {
+    $('.me').hide();
+  }
+
+  if (scroll > $('.secret').offset().top + 20000) {
+    $('.now').show();
+  } else {
+    $('.now').hide();
+  }
+})

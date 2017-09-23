@@ -14,10 +14,12 @@ gulp.task('css', () => {
 });
 
 gulp.task('scripts', () => {
+  var babel = require('gulp-babel');
   const uglify = require('gulp-uglify');
   const rename = require('gulp-rename');
   gulp.src('app/scripts/**/*.js')
     .pipe(plumber())
+    .pipe(babel())
     // .pipe(uglify())
     // .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest('dist/scripts'))

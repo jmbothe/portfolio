@@ -249,30 +249,49 @@ i {
 }
 
 .secret {
-    position: relative;
-    height: 1000vh;
+    height: 4000vh;
     background-image: repeating-linear-gradient(
     hsl(57, 94%, 73%),
-    hsl(97, 94%, 73%) 10%,
-    hsl(137, 94%, 73%) 15%,
-    hsl(177, 94%, 73%) 20%,
-    hsl(217, 94%, 73%) 25%,
-    hsl(257, 94%, 73%) 30%,
-    hsl(297, 94%, 73%) 35%,
-    hsl(337, 94%, 73%) 40%,
-    hsl(17, 94%, 73%) 45%,
-    hsl(57, 94%, 73%) 50%
+    hsl(97, 94%, 73%) 2%,
+    hsl(137, 94%, 73%) 4%,
+    hsl(177, 94%, 73%) 6%,
+    hsl(217, 94%, 73%) 8%,
+    hsl(257, 94%, 73%) 10%,
+    hsl(297, 94%, 73%) 12%,
+    hsl(337, 94%, 73%) 14%,
+    hsl(17, 94%, 73%) 16%,
+    hsl(57, 94%, 73%) 18%
     );
-    
-    a {
-        display: block;
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 50px;
-        text-align: center;
-    }
 }
+
+.hidden-text {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: none;
+  background-size: contain;
+  background-repeat: repeat;
+}
+
+.dont {
+  background-image:url("../assets/dont.svg");
+
+}
+
+.stop {
+  background-image:url("../assets/stop.svg");
+}
+
+.me {
+  background-image:url("../assets/me.svg");
+}
+
+.now {
+  background-image:url("../assets/now.svg");
+}
+
 
 /* Landscape dimensions for hero image */
 @media screen and (min-aspect-ratio: 1454/859) {
