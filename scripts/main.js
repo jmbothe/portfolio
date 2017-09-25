@@ -5,7 +5,10 @@ jQuery($ => {
     canvas: null,
     context: null,
 
-    skillList: ['ES6', 'CSS3', 'HTML5', 'Gulp', 'MVC', 'JavaScript', 'Foundation', 'Bootstrap', 'Node.js', 'npm', 'postcss', 'bash', 'git', 'gitHub', 'Photoshop', 'DRY code', 'clean code', 'self-documenting code', 'mobile-first', 'responsive design', 'functional programming', 'object-oriented programming', 'hella APIs', 'Atom', 'Visual Studio Code'],
+    viewHeight: null,
+    viewWidth: null,
+
+    skillList: ['ES2105', 'CSS3', 'HTML5', 'Gulp', 'MVC', 'JavaScript', 'Foundation', 'Bootstrap', 'Node.js', 'npm', 'postcss', 'bash', 'git', 'gitHub', 'Photoshop', 'DRY code', 'clean code', 'self-documenting code', 'mobile-first', 'responsive design', 'functional programming', 'object-oriented programming', 'hella APIs', 'Atom', 'Visual Studio Code', 'jQuery', 'Flexbox'],
     activeSkills: [],
     skillColors: ['hsl(290, 6%, 18%)', '#fbf579'],
 
@@ -49,11 +52,12 @@ jQuery($ => {
       return { draw, update, getY, skill };
     },
 
-    flameModule: function flameModule(aspect) {
-      let r = this.random(aspect * 2, aspect * 12);
+    flameModule: function flameModule() {
+      let r = this.random(this.canvas.height * 0.01, this.canvas.height * 0.04);
       let x = this.random(0, this.canvas.width);
-      let y = this.canvas.height - r;
-      let velY = this.random(1, 3);
+      let y = this.canvas.height + r * 2;
+      let velY = this.random(1, 4);
+      let deletePoint = this.random(this.canvas.height * 0.7, this.canvas.height * .95);
 
       function define() {
         this.context.moveTo(x + r, y);
@@ -66,12 +70,12 @@ jQuery($ => {
         return y;
       }
 
-      return { define, update, getY };
+      return { define, update, getY, deletePoint };
     },
 
-    fillFlameArray: function fillFlameArray(arr, aspect) {
-      const flame = this.flameModule(aspect);
-      while (arr.length < 30) {
+    fillFlameArray: function fillFlameArray(arr) {
+      while (arr.length < 40) {
+        const flame = this.flameModule();
         arr.push(flame);
       }
     },
@@ -90,11 +94,8 @@ jQuery($ => {
   };
 
   const view = {
-    viewHeight: null,
-    viewWidth: null,
-
     windowIsShortLandscape: function windowIsShortLandscape() {
-      return this.viewWidth / this.viewHeight >= 4 / 3;
+      return model.viewWidth / model.viewHeight >= 4 / 3;
     },
 
     hideProject: function hideProject(current, target) {
@@ -143,8 +144,8 @@ jQuery($ => {
     },
 
     setViewDimensions: function setViewDimensions() {
-      view.viewWidth = this.getViewDimensions().x;
-      view.viewHeight = this.getViewDimensions().y;
+      model.viewWidth = this.getViewDimensions().x;
+      model.viewHeight = this.getViewDimensions().y;
     },
 
     setCanvasDimensions: function setCanvasDimensions(x, y) {
@@ -161,7 +162,7 @@ jQuery($ => {
     },
 
     setSectionsHeight: function setSectionsHeight() {
-      $('.hero, .skills').css({ height: view.viewHeight });
+      $('.hero, .skills').css({ height: model.viewHeight });
     },
 
     toggleProject: function toggleProject(e) {
@@ -203,12 +204,12 @@ jQuery($ => {
         model.drawStyle = model.drawStyle === 'strokeStyle' ? 'fillStyle' : 'strokeStyle';
         model.drawMethod = model.drawMethod === 'fill' ? 'stroke' : 'fill';
 
-        model.fillFlameArray(item, this.getCanvasAspect());
+        model.fillFlameArray(item);
         model.drawFlames(index, item, model.drawStyle, model.flameColors[index], model.drawMethod);
       });
 
       Object.keys(model.activeFlames).forEach(key => {
-        model.activeFlames[key] = model.activeFlames[key].filter(item => !(item.getY.call(model) < height - model.random(50, 800)));
+        model.activeFlames[key] = model.activeFlames[key].filter(item => !(item.getY.call(model) < item.deletePoint));
       });
 
       requestAnimationFrame(canvasLoop.bind(this, updateTime));
@@ -216,13 +217,6 @@ jQuery($ => {
   };
   controller.initialize();
 });
-
-// clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
-
-// clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-
-
-// let percent = scroll - ($('.secret').offset().top + ($('.secret').height() * .1))
 
 function reveal(element, position, scroll) {
   const top = $('.secret').offset().top;
