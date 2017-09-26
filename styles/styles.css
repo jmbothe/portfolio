@@ -110,10 +110,19 @@ p, a {
       font-size: 20rem;
     }
 
-.about span {
-      color: #fbf579;
+.about span, .about a {
+      color:hsla(47, 94%, 73%, .85);
       font-size: 7rem;
       cursor: pointer;
+      text-decoration: none;
+      -webkit-transition: .2s ease;
+      transition: .2s ease;
+    }
+
+.about span:hover, .about a:hover {
+      color: #fbf579;
+      -webkit-transition: .2s ease;
+      transition: .2s ease;
     }
 
 .projects, footer {
@@ -602,4 +611,7 @@ i {
     html {
         font-size: 1.3vw;
     }
+      .about p {
+        font-size: 6rem;
+      }
 }
