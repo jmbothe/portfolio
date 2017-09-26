@@ -1,4 +1,5 @@
-var rellax = new Rellax('.rellax');
+
+const rellax = new Rellax('.rellax');
 
 jQuery(($) => {
   const model = {
@@ -9,7 +10,7 @@ jQuery(($) => {
     viewWidth: null,
 
     skillList: [
-      'ES2105', 'CSS3', 'HTML5', 'Gulp', 'MVC', 'JavaScript', 'Foundation', 'Bootstrap',
+      'ES2015', 'CSS3', 'HTML5', 'Gulp', 'MVC', 'JavaScript', 'Foundation', 'Bootstrap',
       'Node.js', 'npm', 'postcss', 'bash', 'git', 'gitHub', 'Photoshop', 'DRY code',
       'clean code', 'self-documenting code', 'mobile-first', 'responsive design',
       'functional programming', 'object-oriented programming', 'hella APIs',
@@ -18,12 +19,14 @@ jQuery(($) => {
     activeSkills: [],
     skillColors: ['hsl(290, 6%, 18%)', '#fbf579'],
 
-    activeFlames: { a: [], b: [], c: [], d: [] },
+    activeFlames: {
+      a: [], b: [], c: [], d: [] 
+    },
     flameColors: [
-      'hsla(57, 94%, 73%, 1)',
-      'hsla(57, 94%, 73%, .75)',
+      'hsla(57, 94%, 73%, .8)',
+      'hsla(57, 94%, 73%, .7)',
+      'hsla(57, 94%, 73%, .6)',
       'hsla(57, 94%, 73%, .5)',
-      'hsla(57, 94%, 73%, .25)',
     ],
     drawMethod: 'fill',
     drawStyle: 'strokeStyle',
@@ -42,9 +45,9 @@ jQuery(($) => {
       this.context.font = `${font}px Archivo Black`;
       const textWidth = this.context.measureText(skill).width;
 
-      let x = this.random(0, this.canvas.width - textWidth);
+      const x = this.random(0, this.canvas.width - textWidth);
       let y = this.canvas.height + font;
-      let velY = this.random(1, 4);
+      const velY = this.random(1, 4);
 
       const color = this.skillColors[this.random(0, this.skillColors.length)];
 
@@ -60,15 +63,17 @@ jQuery(($) => {
         return y;
       }
 
-      return { draw, update, getY, skill };
+      return {
+        draw, update, getY, skill 
+      };
     },
 
     flameModule: function flameModule() {
-      let r = this.random((this.canvas.height) * 0.01, (this.canvas.height) * 0.04);
-      let x = this.random(0, this.canvas.width);
+      const r = this.random((this.canvas.height) * 0.01, (this.canvas.height) * 0.035);
+      const x = this.random(0, this.canvas.width);
       let y = this.canvas.height + r * 2;
-      let velY = this.random(1, 4);
-      let deletePoint = this.random(this.canvas.height * 0.7, this.canvas.height * .95);
+      const velY = this.random(1, 4);
+      const deletePoint = this.random(this.canvas.height * 0.7, this.canvas.height * 0.95);
 
       function define() {
         this.context.moveTo(x + r, y);
@@ -81,7 +86,9 @@ jQuery(($) => {
         return y;
       }
 
-      return { define, update, getY, deletePoint };
+      return {
+        define, update, getY, deletePoint 
+      };
     },
 
     fillFlameArray: function fillFlameArray(arr) {
@@ -131,6 +138,22 @@ jQuery(($) => {
         target.removeClass('project-collapse');
       }, 400);
     },
+
+    revealSecret: function revealSecret($parent, element, whenToReveal, scrollTop) {
+      const parentTop = $parent.offset().top;
+      whenToReveal = parentTop + ($parent.height() * whenToReveal);
+
+      if (scrollTop > whenToReveal) {
+        const percent = 100 - ((scrollTop - whenToReveal) * 0.1);
+        $(`${element}`).css('clip-path', `polygon(0% ${percent}%, 100% ${percent}%, 100% 100%, 0% 100%)`);
+      } else {
+        $(`${element}`).css('clip-path', 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)');
+      }
+    },
+
+    hideSecretSection: function hideSecretSection(isMobile) {
+      if (isMobile) $('.secret').hide();
+    }
   };
 
   const controller = {
@@ -152,6 +175,10 @@ jQuery(($) => {
         .on('orientationchange', this.setSectionsHeight);
 
       $('.projects-grid').on('click', '.project-hide', this.toggleProject);
+
+      $(window).on('scroll', this.revealSecret);
+
+      $(window).on('load', view.hideSecretSection);
     },
 
     getViewDimensions: function getViewDimensions() {
@@ -180,6 +207,10 @@ jQuery(($) => {
       $('.hero, .skills').css({ height: model.viewHeight });
     },
 
+    isMobile: function isMobile() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    },
+
     toggleProject: function toggleProject(e) {
       const current = $('.project-shell:not(.project-hide)');
       const target = $(e.target).closest('.project-hide');
@@ -195,6 +226,16 @@ jQuery(($) => {
       }, 400);
     },
 
+    revealSecret: function revealSecret() {
+      const scrollTop = $(window).scrollTop();
+      const parent = $('.secret');
+
+      view.revealSecret(parent, '.dont', 0.2, scrollTop);
+      view.revealSecret(parent, '.stop', 0.4, scrollTop);
+      view.revealSecret(parent, '.me', 0.6, scrollTop);
+      view.revealSecret(parent, '.now', 0.8, scrollTop);
+    },
+
     canvasLoop: function canvasLoop(updateTime = performance.now()) {
       const width = model.canvas.width;
       const height = model.canvas.height;
@@ -202,7 +243,7 @@ jQuery(($) => {
       model.context.fillStyle = 'rgba(250, 98, 95, 1)';
       model.context.fillRect(0, 0, width, height);
 
-      while(updateTime + 1000 < performance.now()) {
+      while (updateTime + 1000 < performance.now()) {
         const skill = model.skillModule(this.getCanvasAspect());
         model.activeSkills.push(skill);
         updateTime = performance.now();
@@ -234,26 +275,3 @@ jQuery(($) => {
   };
   controller.initialize();
 });
-
-function reveal(element, position, scroll) {
-  const top = $('.secret').offset().top;
-  const anchor = $('.secret').height() * position;
-
-  if (scroll > top + position) {
-    const percent = 100 - ((scroll - (top + anchor)) * 0.1);
-    $(`${element}`).css('clip-path', `polygon(0% ${percent}%, 100% ${percent}%, 100% 100%, 0% 100%)`);
-  } else {
-    $(`${element}`).css('clip-path', 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)');
-  }
-}
-
-
-$(window).on('scroll', () => {
-  let scroll = $(window).scrollTop();
-
-  reveal('.dont', 0.1, scroll);
-  reveal('.stop', 0.3, scroll);
-  reveal('.me', 0.5, scroll);
-  reveal('.now', 0.7, scroll);
-
-})

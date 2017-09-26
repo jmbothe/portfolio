@@ -14,14 +14,22 @@ gulp.task('css', () => {
 });
 
 gulp.task('scripts', () => {
-  var babel = require('gulp-babel');
-  const uglify = require('gulp-uglify');
+  const sourcemaps = require('gulp-sourcemaps');
+  const concat = require('gulp-concat');
+  const minify = require('gulp-babel-minify');
   const rename = require('gulp-rename');
-  gulp.src('app/scripts/**/*.js')
+
+  gulp.src([
+    'app/scripts/jquery-3.2.1.js',
+    'app/scripts/iscroll.js',
+    'app/scripts/relax.js',
+    'app/scripts/main.js'])
+    .pipe(sourcemaps.init())
+    .pipe(concat('temp.js'))
     .pipe(plumber())
-    .pipe(babel())
-    // .pipe(uglify())
-    // .pipe(rename({suffix: '.min'}))
+    .pipe(minify())
+    .pipe(rename('app.min.js'))
+    .pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest('dist/scripts'))
     .pipe(reload({stream: true}));
 });
@@ -29,7 +37,7 @@ gulp.task('scripts', () => {
 gulp.task('html', () => {
   const htmlReplace = require('gulp-html-replace')
   gulp.src('app/**/*.html')
-  // .pipe(htmlReplace({'jsmini': '<script src="scripts/main.min.js" defer></script>'}))
+  .pipe(htmlReplace({'js': '<script src="scripts/app.min.js" defer></script>'}))
   .pipe(gulp.dest('dist'))
   .pipe(reload({stream: true}));
 })
@@ -58,6 +66,7 @@ gulp.task('watch', () => {
   gulp.watch('app/scripts/**/*.js', ['scripts']);
   gulp.watch('app/styles/**/*css', ['css']);
   gulp.watch('app/**/*.html', ['html']);
+  gulp.watch('app/assets/**/*', ['assets:copy'])
 })
 
 gulp.task('default', ['scripts', 'css', 'html', 'assets:copy', 'browser-sync', 'watch']);
