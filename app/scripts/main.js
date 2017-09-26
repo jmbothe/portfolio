@@ -13,20 +13,20 @@ jQuery(($) => {
       'ES2015', 'CSS3', 'HTML5', 'Gulp', 'MVC', 'JavaScript', 'Foundation', 'Bootstrap',
       'Node.js', 'npm', 'postcss', 'bash', 'git', 'gitHub', 'Photoshop', 'DRY code',
       'clean code', 'self-documenting code', 'mobile-first', 'responsive design',
-      'functional programming', 'object-oriented programming', 'hella APIs',
-      'Atom', 'Visual Studio Code', 'jQuery', 'Flexbox',
+      'functional programming', 'OOP', 'hella APIs', 'Atom', 'Visual Studio Code',
+      'jQuery', 'Flexbox', 'babel', 'sourcemaps', 'compatability', 'graphic design',
     ],
     activeSkills: [],
     skillColors: ['hsl(290, 6%, 18%)', '#fbf579'],
 
     activeFlames: {
-      a: [], b: [], c: [], d: [] 
+      a: [], b: [], c: [], d: [],
     },
     flameColors: [
-      'hsla(57, 94%, 73%, .8)',
-      'hsla(57, 94%, 73%, .7)',
-      'hsla(57, 94%, 73%, .6)',
-      'hsla(57, 94%, 73%, .5)',
+      'hsla(47, 94%, 73%, .8)',
+      'hsla(47, 94%, 73%, .7)',
+      'hsla(47, 94%, 73%, .6)',
+      'hsla(47, 94%, 73%, .5)',
     ],
     drawMethod: 'fill',
     drawStyle: 'strokeStyle',
@@ -36,12 +36,15 @@ jQuery(($) => {
       return num;
     },
 
-    skillModule: function skillModule(aspect) {
-      this.counter = this.counter || 0;
-      this.counter++;
-      const skill = this.skillList[this.counter % this.skillList.length];
+    skillModule: function skillModule(width, height) {
+      this.skillCounter = this.skillCounter || 0;
+      this.skillCounter++;
+      const skill = this.skillList[this.skillCounter % this.skillList.length];
 
-      const font = this.random((aspect) * 20, (aspect) * 40);
+      const font = width > height
+      ? this.random((height) * .09, (height) * .13)
+      : this.random((width) * .06, (width) * .1)
+
       this.context.font = `${font}px Archivo Black`;
       const textWidth = this.context.measureText(skill).width;
 
@@ -49,7 +52,7 @@ jQuery(($) => {
       let y = this.canvas.height + font;
       const velY = this.random(1, 4);
 
-      const color = this.skillColors[this.random(0, this.skillColors.length)];
+      const color = this.skillColors[this.skillCounter % 2];
 
       function draw() {
         this.context.font = `${font}px Archivo Black`;
@@ -64,7 +67,7 @@ jQuery(($) => {
       }
 
       return {
-        draw, update, getY, skill 
+        draw, update, getY, skill,
       };
     },
 
@@ -87,7 +90,7 @@ jQuery(($) => {
       }
 
       return {
-        define, update, getY, deletePoint 
+        define, update, getY, deletePoint,
       };
     },
 
@@ -108,6 +111,24 @@ jQuery(($) => {
       });
       this.context[drawMethod]();
       this.context.closePath();
+    },
+
+    drawWaves: function drawWaves(width, height, orientation) {
+      this.end = this.end || 0;
+      const length = orientation ? width * 2 : width;
+      let end = (0 - length * .08) + this.end;
+      this.context.fillStyle = '#fbf579';
+      this.context.beginPath();
+      while (end < width) {
+        model.context.moveTo(end, height * .95);
+        model.context.bezierCurveTo(end + length * .02, height * .9, end + length * .06, height, end + length * .08, height * .95);
+        end += length * .08
+      }
+      this.end = this.end < 0 ? this.end + 1 : 0 - length * .08
+      model.context.lineTo(end, height)
+      model.context.lineTo(0, height)
+      model.context.lineTo(0, height * .95)
+      model.context.fill();
     },
   };
 
@@ -153,7 +174,7 @@ jQuery(($) => {
 
     hideSecretSection: function hideSecretSection(isMobile) {
       if (isMobile) $('.secret').hide();
-    }
+    },
   };
 
   const controller = {
@@ -165,6 +186,7 @@ jQuery(($) => {
       this.setupListeners();
       this.canvasLoop();
       this.setSectionsHeight();
+      view.hideSecretSection(this.isMobile());
     },
 
     setupListeners: function setupListeners() {
@@ -177,8 +199,6 @@ jQuery(($) => {
       $('.projects-grid').on('click', '.project-hide', this.toggleProject);
 
       $(window).on('scroll', this.revealSecret);
-
-      $(window).on('load', view.hideSecretSection);
     },
 
     getViewDimensions: function getViewDimensions() {
@@ -197,6 +217,30 @@ jQuery(($) => {
 
     getViewAspect: function getViewAspect() {
       return this.getViewDimensions().x / this.getViewDimensions().y;
+    },
+
+    isShortLandscape: function isShortLandscape() {
+      return this.getViewAspect() >= 4 / 3 && this.getViewAspect() < 16 / 9;
+    },
+
+    isLongLandscape: function isLongLandscape() {
+      return this.getViewAspect() >= 16 / 9;
+    },
+
+    isShortPortrait: function isShortPortrait() {
+      return this.getViewAspect() <= 3 / 4 && this.getViewAspect() > 9 / 16;
+    },
+
+    isLongPortrait: function isLongPortrait() {
+      return this.getViewAspect() <= 9 / 16;
+    },
+
+    isSquareish: function isSquarish() {
+      return this.getViewAspect() < 4 / 3 && this.getViewAspect() > 3 / 4;
+    },
+
+    getCanvasDimensions: function getCanvasDimensions() {
+      return { x: model.canvas.width, y: model.canvas.height };
     },
 
     getCanvasAspect: function getCanvasAspect() {
@@ -243,8 +287,8 @@ jQuery(($) => {
       model.context.fillStyle = 'rgba(250, 98, 95, 1)';
       model.context.fillRect(0, 0, width, height);
 
-      while (updateTime + 1000 < performance.now()) {
-        const skill = model.skillModule(this.getCanvasAspect());
+      while (updateTime + 1500 < performance.now()) {
+        const skill = model.skillModule(width, height);
         model.activeSkills.push(skill);
         updateTime = performance.now();
       }
@@ -270,8 +314,37 @@ jQuery(($) => {
           .filter(item => !(item.getY.call(model) < item.deletePoint));
       });
 
+      model.drawWaves(width, height, this.isShortPortrait() || this.isLongPortrait());
+
       requestAnimationFrame(canvasLoop.bind(this, updateTime));
     },
   };
   controller.initialize();
 });
+
+function onAfter(direction) {
+  if (direction !== 'up') {
+    setTimeout(() => {
+      $(".contact ul li").each((index, item) => {
+        setTimeout(() => {
+          $(item).addClass('scrollFinish')
+        }, (index) * 150)
+        setTimeout(() => {
+          $(item).removeClass('scrollFinish')
+        }, (index + 3) * 150)
+      });
+    }, 0);
+}
+}
+
+$('.nav-to-contact').on('click', () => {
+  $.scrollTo('.contact h2', {
+    duration: 1000,
+    onAfter: onAfter,
+  });
+});
+
+var waypoint = new Waypoint({
+  element: document.querySelector('.contact'),
+  handler: onAfter,
+})

@@ -100,7 +100,7 @@ p, a {
 
 .about p {
       z-index: 1;
-        font-size: 7rem;
+      font-size: 7rem;
     }
 
 .about h2 {
@@ -108,6 +108,12 @@ p, a {
       z-index: 0;
       color: #fbf579;
       font-size: 20rem;
+    }
+
+.about span {
+      color: #fbf579;
+      font-size: 7rem;
+      cursor: pointer;
     }
 
 .projects, footer {
@@ -351,22 +357,22 @@ footer ul li i {
         transition: .4s ease;
       }
 
-footer ul li:hover, footer ul li:active {
+footer ul li:hover, footer ul li:active, footer ul li:focus, footer ul .scrollFinish {
       border-color: hsl(290, 6%, 18%);
     }
 
-footer ul li:hover > div, footer ul li:active > div {
+footer ul li:hover > div, footer ul li:active > div, footer ul li:focus > div, footer ul .scrollFinish > div {
       -webkit-transform: translateX(10%);
               transform: translateX(10%);
       -webkit-transition: .4s ease;
       transition: .4s ease;
       }
 
-footer ul li:hover > div div, footer ul li:active > div div {
+footer ul li:hover > div div, footer ul li:active > div div, footer ul li:focus > div div, footer ul .scrollFinish > div div {
         color: #fa625f;
       }
 
-footer ul li:hover i, footer ul li:active i {
+footer ul li:hover i, footer ul li:active i, footer ul li:focus i, footer ul .scrollFinish i {
         color: #fa625f;
         -webkit-transition: .4s ease;
         transition: .4s ease;
@@ -517,11 +523,11 @@ i {
               -webkit-transition: .4s ease;
               transition: .4s ease;
             }
-        footer ul li:hover > div {
+        footer ul li:hover > div, footer ul li:active > div, footer ul li:focus > div, footer ul .scrollFinish > div {
           -webkit-transform: translateX(0) scale(1.1);
                   transform: translateX(0) scale(1.1);
         }
-            footer ul li:hover > div a div {
+            footer ul li:hover > div a div, footer ul li:active > div a div, footer ul li:focus > div a div, footer ul .scrollFinish > div a div {
               -webkit-transform: translateY(50%);
                       transform: translateY(50%);
               opacity: 100;

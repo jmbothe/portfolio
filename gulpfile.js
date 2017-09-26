@@ -21,7 +21,8 @@ gulp.task('scripts', () => {
 
   gulp.src([
     'app/scripts/jquery-3.2.1.js',
-    'app/scripts/iscroll.js',
+    'app/scripts/scrollto.js',
+    'app/scripts/waypoints.js',
     'app/scripts/relax.js',
     'app/scripts/main.js'])
     .pipe(sourcemaps.init())

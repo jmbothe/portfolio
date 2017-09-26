@@ -85,13 +85,18 @@ p, a {
     background: linear-gradient(#fbf579, #fa625f);
     p {
       z-index: 1;
-        font-size: 7rem;
+      font-size: 7rem;
     }
     h2 {
       position: absolute;
       z-index: 0;
       color: #fbf579;
       font-size: 20rem;
+    }
+    span {
+      color: #fbf579;
+      font-size: 7rem;
+      cursor: pointer;
     }
 }
 
@@ -267,7 +272,7 @@ footer {
         transition: .4s ease;
       }
     }
-    li:hover, li:active {
+    li:hover, li:active, li:focus, .scrollFinish {
       border-color: hsl(290, 6%, 18%);
       > div {
       transform: translateX(10%);
@@ -413,7 +418,7 @@ i {
           }
         }
       }
-      li:hover {
+      li:hover, li:active, li:focus, .scrollFinish {
         > div {
           transform: translateX(0) scale(1.1);
           a {
