@@ -93,10 +93,16 @@ p, a {
       color: #fbf579;
       font-size: 20rem;
     }
-    span {
-      color: #fbf579;
+    span, a {
+      color:hsla(47, 94%, 73%, .85);
       font-size: 7rem;
       cursor: pointer;
+      text-decoration: none;
+      transition: .2s ease;
+    }
+    span:hover, a:hover {
+      color: #fbf579;
+      transition: .2s ease;
     }
 }
 
@@ -487,5 +493,11 @@ i {
 @media screen and (min-aspect-ratio: 3/2) {
     html {
         font-size: 1.3vw;
+    }
+
+    .about {
+      p {
+        font-size: 6rem;
+      }
     }
 }
