@@ -1,21 +1,26 @@
 const gulp = require('gulp');
 const plumber = require('gulp-plumber');
 const browserSync = require('browser-sync');
+const sourcemaps = require('gulp-sourcemaps');
+const concat = require('gulp-concat');
 const reload = browserSync.reload;
 
 gulp.task('css', () => {
   const postcss = require('gulp-postcss');
+  const cssnano = require('gulp-cssnano');
 
   return gulp.src('app/styles/**/*.css')
     .pipe(plumber())
+    .pipe(sourcemaps.init())
     .pipe(postcss([require('precss')(), require('autoprefixer')({ browsers: 'last 2 versions, > 5%' })]))
+    .pipe(concat('styles.css'))
+    .pipe(cssnano())
+    .pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest('dist/styles/'))
     .pipe(reload({stream: true}));
 });
 
 gulp.task('scripts', () => {
-  const sourcemaps = require('gulp-sourcemaps');
-  const concat = require('gulp-concat');
   const minify = require('gulp-babel-minify');
   const rename = require('gulp-rename');
 
@@ -25,9 +30,9 @@ gulp.task('scripts', () => {
     'app/scripts/waypoints.js',
     'app/scripts/relax.js',
     'app/scripts/main.js'])
+    .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(concat('temp.js'))
-    .pipe(plumber())
     .pipe(minify())
     .pipe(rename('app.min.js'))
     .pipe(sourcemaps.write('../maps'))
@@ -38,7 +43,10 @@ gulp.task('scripts', () => {
 gulp.task('html', () => {
   const htmlReplace = require('gulp-html-replace')
   gulp.src('app/**/*.html')
-  .pipe(htmlReplace({'js': '<script src="scripts/app.min.js" defer></script>'}))
+  .pipe(htmlReplace({
+    'js': '<script src="scripts/app.min.js" defer></script>',
+    'css': '<link rel="stylesheet" href="styles/styles.css">',
+  }))
   .pipe(gulp.dest('dist'))
   .pipe(reload({stream: true}));
 })
