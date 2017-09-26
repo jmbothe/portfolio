@@ -331,7 +331,7 @@ function onAfter(direction) {
         }, (index) * 150)
         setTimeout(() => {
           $(item).removeClass('scrollFinish')
-        }, (index + 3) * 150)
+        }, (index + 5) * 150)
       });
     }, 0);
 }
