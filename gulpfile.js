@@ -58,8 +58,18 @@ gulp.task('assets:cleanfolder', (cb) => {
   ], cb)
 })
 
-gulp.task('assets:copy', ['assets:cleanfolder'], () => {
-  return gulp.src(['app/assets/**/*', '!app/assets/psd/'])
+gulp.task('assets:optimize', ['assets:cleanfolder'], () => {
+  const imagemin = require('gulp-imagemin');
+  return gulp.src(['app/assets/**/*.jpg', 'app/assets/**/*.png', '!app/assets/psd/*'])
+  .pipe(imagemin([
+    imagemin.jpegtran({progressive: true}),
+    imagemin.optipng({optimizationLevel: 7})
+  ]))
+    .pipe(gulp.dest('dist/assets'))
+})
+
+gulp.task('assets:copy', ['assets:optimize'], () => {
+  return gulp.src(['app/assets/**/*', '!app/assets/**/*.jpg', '!app/assets/**/*.png', '!app/assets/psd/*'])
     .pipe(gulp.dest('dist/assets'))
 })
 

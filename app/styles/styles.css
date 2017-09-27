@@ -31,13 +31,13 @@ h1, h2, h3 {
 }
 
 h1 {
-    border-bottom: 8px solid #fa625f;
-    margin-bottom: 0;
-    font-size: 8rem;
+  border-bottom: 8px solid #fa625f;
+  margin-bottom: 0;
+  font-size: 8rem;
 }
 
 h2 {
-    font-size: 5rem;
+  font-size: 5rem;
 }
 
 h3 {
@@ -45,25 +45,25 @@ h3 {
 }
 
 p, a {
-    font-size: 3rem;
+font-size: 3rem;
 }
 
 .hero {
-    flex-direction: column;
-    position: relative;
-    height: 100vh;
+  flex-direction: column;
+  position: relative;
+  height: 100vh;
 }
 
 .knockout {
-    background: url('../assets/hero-background.jpg')no-repeat;
-    background-attachment: fixed;
-    background-size: 100% auto;
-    width: 100%;
+  background: url('../assets/images/hero-background540.jpg')no-repeat;
+  background-attachment: fixed;
+  background-size: 100% auto;
+  width: 100%;
 }
 
 .knockout-fill {
-    background-color: #fbf579;
-    flex: 1;
+  background-color: #fbf579;
+  flex: 1;
 }
 
 .hero-text {
@@ -348,22 +348,39 @@ i {
 }
 
 .dont {
-  background-image:url("../assets/dont.svg");
+  background-image:url("../assets/images/dont.svg");
   display: block;
 }
 
 .stop {
-  background-image:url("../assets/stop.svg");
+  background-image:url("../assets/images/stop.svg");
 }
 
 .me {
-  background-image:url("../assets/me.svg");
+  background-image:url("../assets/images/me.svg");
 }
 
 .now {
-  background-image:url("../assets/now.svg");
+  background-image:url("../assets/images/now.svg");
 }
 
+@media only screen and (min-width : 668px) {
+  .knockout {
+    background: url('../assets/images/hero-background960.jpg')no-repeat;
+    background-attachment: fixed;
+    background-size: 100% auto;
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width : 1024px) {
+.knockout {
+    background: url('../assets/images/hero-background1280.jpg')no-repeat;
+    background-attachment: fixed;
+    background-size: 100% auto;
+    width: 100%;
+  }
+}
 
 /* Landscape dimensions for hero image */
 @media screen and (min-aspect-ratio: 1454/859) {
