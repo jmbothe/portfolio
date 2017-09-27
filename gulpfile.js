@@ -5,14 +5,26 @@ const sourcemaps = require('gulp-sourcemaps');
 const concat = require('gulp-concat');
 const reload = browserSync.reload;
 
-gulp.task('css', () => {
+gulp.task('postcss', () => {
   const postcss = require('gulp-postcss');
+  const rename = require('gulp-rename')
+
+    return gulp.src('app/styles/post.css')
+    .pipe(plumber())
+    .pipe(postcss([require('precss')(), require('autoprefixer')({ browsers: 'last 2 versions, > 5%' })]))
+    .pipe(rename('styles.css'))
+    .pipe(gulp.dest('app/styles/'))
+    .pipe(reload({stream: true}));
+})
+
+gulp.task('css', ['postcss'], () => {
   const cssnano = require('gulp-cssnano');
 
-  return gulp.src('app/styles/**/*.css')
+  gulp.src([
+    'app/styles/normalize.css',
+    'app/styles/styles.css'])
     .pipe(plumber())
     .pipe(sourcemaps.init())
-    .pipe(postcss([require('precss')(), require('autoprefixer')({ browsers: 'last 2 versions, > 5%' })]))
     .pipe(concat('styles.css'))
     .pipe(cssnano())
     .pipe(sourcemaps.write('../maps'))
@@ -22,7 +34,6 @@ gulp.task('css', () => {
 
 gulp.task('scripts', () => {
   const minify = require('gulp-babel-minify');
-  const rename = require('gulp-rename');
 
   gulp.src([
     'app/scripts/jquery-3.2.1.js',
@@ -32,9 +43,8 @@ gulp.task('scripts', () => {
     'app/scripts/main.js'])
     .pipe(plumber())
     .pipe(sourcemaps.init())
-    .pipe(concat('temp.js'))
+    .pipe(concat('app.min.js'))
     .pipe(minify())
-    .pipe(rename('app.min.js'))
     .pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest('dist/scripts'))
     .pipe(reload({stream: true}));
@@ -51,11 +61,9 @@ gulp.task('html', () => {
   .pipe(reload({stream: true}));
 })
 
-gulp.task('assets:cleanfolder', (cb) => {
+gulp.task('assets:cleanfolder', () => {
   const del = require('del');
-  return del([
-    'dist/assets/**',
-  ], cb)
+  return del(['dist/assets/**'])
 })
 
 gulp.task('assets:optimize', ['assets:cleanfolder'], () => {
@@ -76,7 +84,7 @@ gulp.task('assets:copy', ['assets:optimize'], () => {
 gulp.task('browser-sync', () => {
   browserSync ({
     server: {
-      baseDir: './dist'
+      baseDir: './app'
     }
   })
 })

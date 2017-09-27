@@ -1,3 +1,4 @@
+'use strict';
 
 const rellax = new Rellax('.rellax');
 
@@ -274,10 +275,19 @@ jQuery(($) => {
       const scrollTop = $(window).scrollTop();
       const parent = $('.secret');
 
-      view.revealSecret(parent, '.dont', 0.2, scrollTop);
-      view.revealSecret(parent, '.stop', 0.4, scrollTop);
-      view.revealSecret(parent, '.me', 0.6, scrollTop);
-      view.revealSecret(parent, '.now', 0.8, scrollTop);
+      view.revealSecret(parent, '.earth', 0, scrollTop);
+      view.revealSecret(parent, '.earthneg', 0.07, scrollTop);
+      view.revealSecret(parent, '.dont', 0.140, scrollTop);
+      view.revealSecret(parent, '.comet', 0.21, scrollTop);
+      view.revealSecret(parent, '.tiger', 0.28, scrollTop);
+      view.revealSecret(parent, '.stop', 0.35, scrollTop);
+      view.revealSecret(parent, '.godiva', 0.42, scrollTop);
+      view.revealSecret(parent, '.rocket', 0.49, scrollTop);
+      view.revealSecret(parent, '.me', 0.56, scrollTop);
+      view.revealSecret(parent, '.satalite', 0.63, scrollTop);
+      view.revealSecret(parent, '.bomb', 0.7, scrollTop);
+      view.revealSecret(parent, '.now', 0.77, scrollTop);
+      view.revealSecret(parent, '.explode', 0.84, scrollTop);
     },
 
     canvasLoop: function canvasLoop(updateTime = performance.now()) {
