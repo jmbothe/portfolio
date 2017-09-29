@@ -371,15 +371,15 @@ footer ul li:hover, footer ul li:active, footer ul li:focus, footer ul .scrollFi
     }
 
 footer ul li:hover > div, footer ul li:active > div, footer ul li:focus > div, footer ul .scrollFinish > div {
-      -webkit-transform: translateX(10%);
-              transform: translateX(10%);
-      -webkit-transition: .4s ease;
-      transition: .4s ease;
+        -webkit-transform: translateX(10%);
+                transform: translateX(10%);
+        -webkit-transition: .4s ease;
+        transition: .4s ease;
       }
 
 footer ul li:hover > div div, footer ul li:active > div div, footer ul li:focus > div div, footer ul .scrollFinish > div div {
-        color: #fa625f;
-      }
+          color: #fa625f;
+        }
 
 footer ul li:hover i, footer ul li:active i, footer ul li:focus i, footer ul .scrollFinish i {
         color: #fa625f;
@@ -445,7 +445,7 @@ i {
       transition: .2s ease;
     }
 
-.hidden-text, .hidden-img {
+.hidden {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -453,73 +453,6 @@ i {
   right: 0;
   background-size: contain;
   background-repeat: repeat;
-  -webkit-clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
-          clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%); 
-}
-
-.dont {
-  background-image:url("../assets/images/dont.svg");
-  display: block;
-}
-
-.stop {
-  background-image:url("../assets/images/stop.svg");
-}
-
-.me {
-  background-image:url("../assets/images/me.svg");
-}
-
-.now {
-  background-image:url("../assets/images/now.svg");
-}
-
-.earth {
-  background-image:url("../assets/images/earth1280.png");
-  background-repeat: no-repeat;
-  background-position: left;
-}
-
-.earthneg {
-  background-image:url("../assets/images/earthneg1280.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: right;
-}
-
-.comet{
-  background-image:url("../assets/images/comet1280.png");
-  background-size: 25%;
-}
-
-.tiger {
-  background-image:url("../assets/images/tiger1280.png");
-  background-size: 40%;
-}
-
-.godiva {
-  background-image:url("../assets/images/godiva1280.png");
-  background-size: cover;
-}
-
-.rocket {
-  background-image:url("../assets/images/rocket1280.png");
-  background-size: 20%;
-}
-
-.satalite {
-  background-image:url("../assets/images/satalite1280.png");
-  background-size: 50%;
-}
-
-.bomb {
-  background-image:url("../assets/images/bomb1280.png");
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.explode {
-  background-image:url("../assets/images/explode1280.png");
 }
 
 @media only screen and (min-width : 668px) {
@@ -537,6 +470,92 @@ i {
     background-attachment: fixed;
     background-size: 100% auto;
     width: 100%;
+  }
+
+  .hidden {
+    display: block;
+    -webkit-clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+            clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%); 
+  }
+  
+  .dont {
+    background-image:url("../assets/images/dont.svg");
+    display: block;
+  }
+  
+  .stop {
+    background-image:url("../assets/images/stop.svg");
+  }
+  
+  .me {
+    background-image:url("../assets/images/me.svg");
+  }
+  
+  .now {
+    background-image:url("../assets/images/now.svg");
+  }
+  
+  .earth1, .earth2, .earth3 {
+    background-image:url("../assets/images/earth.png");
+    background-repeat: no-repeat;
+    background-position: left;
+  }
+  
+  .earth2 {
+    background-position: center;
+  }
+  
+  .earth3 {
+    background-position: right;
+  }
+  
+  .earthneg1, .earthneg2, .earthneg3 {
+    background-image:url("../assets/images/earthneg.png");
+    background-repeat: no-repeat;
+    background-position: right;
+  }
+  
+  .earthneg2 {
+    background-position: center;
+  }
+  
+  .earthneg3 {
+    background-position: left;
+  }
+  
+  .comet{
+    background-image:url("../assets/images/comet.png");
+    background-size: 25%;
+  }
+  
+  .tiger {
+    background-image:url("../assets/images/tiger.png");
+    background-size: 40%;
+  }
+  
+  .godiva {
+    background-image:url("../assets/images/godiva.png");
+    background-size: contains;
+  }
+  
+  .rocket {
+    background-image:url("../assets/images/rocket.png");
+    background-size: 20%;
+  }
+  
+  .satalite {
+    background-image:url("../assets/images/satalite.png");
+    background-size: 50%;
+  }
+  
+  .bomb {
+    background-image:url("../assets/images/bomb.png");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .explode {
+    background-image:url("../assets/images/explode.png");
   }
 }
 

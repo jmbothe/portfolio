@@ -1,0 +1,52 @@
+/mnt/c/Users/Jeffry/development/projects/portfolio/app/index.html
+heading|issue|element|id|class|line|column|description
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_2.H25.2|<title>Jeff Bothe - Web Guy</title>|||8|2|Check that the title element describes the document.
+ERROR|WCAG2A.Principle1.Guideline1_1.1_1_1.H37|<img src="assets/images/hero-knockout.png" class="knockout">||knockout|28|4|Img element missing an alt attribute. Use the alt attribute to specify a short text alternative.
+NOTICE|WCAG2A.Principle1.Guideline1_1.1_1_1.G73,G74|<img src="assets/images/hero-knockout.png" class="knockout">||knockout|28|4|If this image cannot be fully described in a short text alternative, ensure a long text alternative is also available, such as in the body text or through a link.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a href="assets/resume.pdf" class="resume" target="_blank">vanilla resume</a>||resume|41|90|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+WARNING|WCAG2A.Principle1.Guideline1_3.1_3_1.H48|<div class="project-links">
+          <a href="https://jmbothe.github.io/photo-phinish/" target="_blank">Demo</a>
+          <a href="https://github.com/jmbothe/photo-phinish" target="_blank">GitHub</a>
+        </div>||project-links|76|8|If this element contains a navigation section, it is recommended that it be marked up as a list.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a href="https://jmbothe.github.io/photo-phinish/" target="_blank">Demo</a>|||77|10|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a href="https://github.com/jmbothe/photo-phinish" target="_blank">GitHub</a>|||78|10|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+WARNING|WCAG2A.Principle1.Guideline1_3.1_3_1.H48|<div class="project-links">
+          <a href="https://jmbothe.github.io/drum-sequencer/dist/" target="_blank">Demo</a>
+          <a href="https://github.com/jmbothe/drum-sequencer" target="_blank">GitHub</a>
+        </div>||project-links|86|8|If this element contains a navigation section, it is recommended that it be marked up as a list.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a href="https://jmbothe.github.io/drum-sequencer/dist/" target="_blank">Demo</a>|||87|10|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a href="https://github.com/jmbothe/drum-sequencer" target="_blank">GitHub</a>|||88|10|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+WARNING|WCAG2A.Principle1.Guideline1_3.1_3_1.H48|<div class="project-links">
+            <a href="https://jmbothe.github.io/calculator-MVC/dist/" target="_blank">Demo</a>
+            <a href="https://github.com/jmbothe/calculator-MVC" target="_blank">GitHub</a>
+        </div>||project-links|96|8|If this element contains a navigation section, it is recommended that it be marked up as a list.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a href="https://jmbothe.github.io/calculator-MVC/dist/" target="_blank">Demo</a>|||97|12|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a href="https://github.com/jmbothe/calculator-MVC" target="_blank">GitHub</a>|||98|12|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+WARNING|WCAG2A.Principle1.Guideline1_3.1_3_1.H48|<div class="project-links">
+            <a href="https://jmbothe.github.io/todo-list/dist/" target="_blank">Demo</a>
+            <a href="https://github.com/jmbothe/todo-list" target="_blank">Github</a>
+        </div>||project-links|106|8|If this element contains a navigation section, it is recommended that it be marked up as a list.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a href="https://jmbothe.github.io/todo-list/dist/" target="_blank">Demo</a>|||107|12|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a href="https://github.com/jmbothe/todo-list" target="_blank">Github</a>|||108|12|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a href="https://watchandcode.com/p/practical-javascript" target="_blank">Watch and Code - Practical Javascript tutorial.</a>|||110|124|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a href="mailto:jeffrymbothe@gmail.com" target="_blank">
+              <div>E-mail</div><i class="fi-mail"></i>
+            </a>|||127|12|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+WARNING|WCAG2A.Principle1.Guideline1_3.1_3_1.H49.I|<i class="fi-mail"></i>||fi-mail|128|31|Semantic markup should be used to mark emphasised or special text so that it can be programmatically determined.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a href="https://github.com/jmbothe/" target="_blank">
+              <div>GitHub</div><i class="fi-social-github"></i>
+            </a>|||135|14|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+WARNING|WCAG2A.Principle1.Guideline1_3.1_3_1.H49.I|<i class="fi-social-github"></i>||fi-social-github|136|31|Semantic markup should be used to mark emphasised or special text so that it can be programmatically determined.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a href="www.linkedin.com/in/jmbothe" target="_blank">
+              <div>LinkedIn</div><i class="fi-social-linkedin"></i>
+            </a>|||143|12|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+WARNING|WCAG2A.Principle1.Guideline1_3.1_3_1.H49.I|<i class="fi-social-linkedin"></i>||fi-social-linkedin|144|33|Semantic markup should be used to mark emphasised or special text so that it can be programmatically determined.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a href="https://www.instagram.com/jeff_bothe/" target="_blank">
+              <div>Instagram</div><i class="fi-social-instagram"></i>
+            </a>|||151|12|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+WARNING|WCAG2A.Principle1.Guideline1_3.1_3_1.H49.I|<i class="fi-social-instagram"></i>||fi-social-instagram|152|34|Semantic markup should be used to mark emphasised or special text so that it can be programmatically determined.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a href="https://twitter.com/jeffbothe" target="_blank">
+              <div>Twitter</div><i class="fi-social-twitter"></i>
+            </a>|||159|12|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+WARNING|WCAG2A.Principle1.Guideline1_3.1_3_1.H49.I|<i class="fi-social-twitter"></i>||fi-social-twitter|160|32|Semantic markup should be used to mark emphasised or special text so that it can be programmatically determined.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a href="https://www.youtube.com/watch?v=HgzGwKwLmgM" target="_blank">hidden track</a>|||169|4|Check that the link text combined with programmatically determined link context identifies the purpose of the link.

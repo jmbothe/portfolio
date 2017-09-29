@@ -3,13 +3,26 @@ const plumber = require('gulp-plumber');
 const browserSync = require('browser-sync');
 const sourcemaps = require('gulp-sourcemaps');
 const concat = require('gulp-concat');
+const del = require('del');
+const rename = require('gulp-rename');
+const postcss = require('gulp-postcss');
+const cssnano = require('gulp-cssnano');
+const htmlReplace = require('gulp-html-replace')
+const minify = require('gulp-babel-minify');
+const access = require('gulp-accessibility');
 const reload = browserSync.reload;
 
-gulp.task('postcss', () => {
-  const postcss = require('gulp-postcss');
-  const rename = require('gulp-rename')
+gulp.task('test', () => {
+  gulp.src('app/**/*.html')
+    .pipe(access({ force: true }))
+    .on('error', console.log)
+    .pipe(access.report({reportType: 'txt'}))
+    .pipe(rename({ extname: '.txt' }))
+    .pipe(gulp.dest('reports/txt'));
+})
 
-    return gulp.src('app/styles/post.css')
+gulp.task('postcss', () => {
+    gulp.src('app/styles/post.css')
     .pipe(plumber())
     .pipe(postcss([require('precss')(), require('autoprefixer')({ browsers: 'last 2 versions, > 5%' })]))
     .pipe(rename('styles.css'))
@@ -18,8 +31,6 @@ gulp.task('postcss', () => {
 })
 
 gulp.task('css', ['postcss'], () => {
-  const cssnano = require('gulp-cssnano');
-
   gulp.src([
     'app/styles/normalize.css',
     'app/styles/styles.css'])
@@ -33,8 +44,6 @@ gulp.task('css', ['postcss'], () => {
 });
 
 gulp.task('scripts', () => {
-  const minify = require('gulp-babel-minify');
-
   gulp.src([
     'app/scripts/jquery-3.2.1.js',
     'app/scripts/scrollto.js',
@@ -51,7 +60,6 @@ gulp.task('scripts', () => {
 });
 
 gulp.task('html', () => {
-  const htmlReplace = require('gulp-html-replace')
   gulp.src('app/**/*.html')
   .pipe(htmlReplace({
     'js': '<script src="scripts/app.min.js" defer></script>',
@@ -61,23 +69,10 @@ gulp.task('html', () => {
   .pipe(reload({stream: true}));
 })
 
-gulp.task('assets:cleanfolder', () => {
-  const del = require('del');
-  return del(['dist/assets/**'])
-})
+gulp.task('assets:cleanfolder', () => del(['dist/assets/**']));
 
-gulp.task('assets:optimize', ['assets:cleanfolder'], () => {
-  const imagemin = require('gulp-imagemin');
-  return gulp.src(['app/assets/**/*.jpg', 'app/assets/**/*.png', '!app/assets/psd/*'])
-  .pipe(imagemin([
-    imagemin.jpegtran({progressive: true}),
-    imagemin.optipng({optimizationLevel: 7})
-  ]))
-    .pipe(gulp.dest('dist/assets'))
-})
-
-gulp.task('assets:copy', ['assets:optimize'], () => {
-  return gulp.src(['app/assets/**/*', '!app/assets/**/*.jpg', '!app/assets/**/*.png', '!app/assets/psd/*'])
+gulp.task('assets:copy', ['assets:cleanfolder'], () => {
+  gulp.src(['app/assets/**/*', '!app/assets/psd/*'])
     .pipe(gulp.dest('dist/assets'))
 })
 

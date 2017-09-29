@@ -200,6 +200,8 @@ jQuery(($) => {
       $('.projects-grid').on('click', '.project-hide', this.toggleProject);
 
       $(window).on('scroll', this.revealSecret);
+
+      $('.nav-to-contact').on('click', this.scrollTo);
     },
 
     getViewDimensions: function getViewDimensions() {
@@ -271,12 +273,36 @@ jQuery(($) => {
       }, 400);
     },
 
+    scrollTo: function scrollTo() {
+      $.scrollTo('.contact h2', {
+        duration: 1000,
+        onAfter: function onAfter(direction) {
+          if (direction !== 'up') {
+            setTimeout(() => {
+              $(".contact ul li").each((index, item) => {
+                setTimeout(() => {
+                  $(item).addClass('scrollFinish');
+                }, (index) * 150);
+                setTimeout(() => {
+                  $(item).removeClass('scrollFinish')
+                }, (index + 5) * 150);
+              });
+            }, 0);
+          }
+        },
+      });
+    },
+
     revealSecret: function revealSecret() {
       const scrollTop = $(window).scrollTop();
       const parent = $('.secret');
 
-      view.revealSecret(parent, '.earth', 0, scrollTop);
-      view.revealSecret(parent, '.earthneg', 0.07, scrollTop);
+      view.revealSecret(parent, '.earth1', 0, scrollTop);
+      view.revealSecret(parent, '.earth2', 0.02, scrollTop);
+      view.revealSecret(parent, '.earth3', 0.04, scrollTop);
+      view.revealSecret(parent, '.earthneg1', 0.07, scrollTop);
+      view.revealSecret(parent, '.earthneg2', 0.09, scrollTop);
+      view.revealSecret(parent, '.earthneg3', 0.11, scrollTop);
       view.revealSecret(parent, '.dont', 0.140, scrollTop);
       view.revealSecret(parent, '.comet', 0.21, scrollTop);
       view.revealSecret(parent, '.tiger', 0.28, scrollTop);
@@ -331,30 +357,3 @@ jQuery(($) => {
   };
   controller.initialize();
 });
-
-function onAfter(direction) {
-  if (direction !== 'up') {
-    setTimeout(() => {
-      $(".contact ul li").each((index, item) => {
-        setTimeout(() => {
-          $(item).addClass('scrollFinish')
-        }, (index) * 150)
-        setTimeout(() => {
-          $(item).removeClass('scrollFinish')
-        }, (index + 5) * 150)
-      });
-    }, 0);
-}
-}
-
-$('.nav-to-contact').on('click', () => {
-  $.scrollTo('.contact h2', {
-    duration: 1000,
-    onAfter: onAfter,
-  });
-});
-
-var waypoint = new Waypoint({
-  element: document.querySelector('.contact'),
-  handler: onAfter,
-})
