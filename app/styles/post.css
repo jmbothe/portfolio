@@ -360,6 +360,95 @@ i {
   background-repeat: repeat;
 }
 
+
+.hidden {
+  clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%); 
+}
+
+.dont {
+  background-image:url("../assets/images/dont.svg");
+  display: block;
+}
+
+.stop {
+  background-image:url("../assets/images/stop.svg");
+}
+
+.me {
+  background-image:url("../assets/images/me.svg");
+}
+
+.now {
+  background-image:url("../assets/images/now.svg");
+}
+
+.earth1 {
+  background-image:url("../assets/images/earth.png");
+  background-repeat: no-repeat;
+  background-position: left;
+}
+
+.earth2 {
+  @extend .earth1;
+  background-position: center;
+}
+
+.earth3 {
+  @extend .earth1;
+  background-position: right;
+}
+
+.earthneg1 {
+  background-image:url("../assets/images/earthneg.png");
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+.earthneg2 {
+  @extend .earthneg1;
+  background-position: center;
+}
+
+.earthneg3 {
+  @extend .earthneg1;
+  background-position: left;
+}
+
+.comet{
+  background-image:url("../assets/images/comet.png");
+  background-size: 25%;
+}
+
+.tiger {
+  background-image:url("../assets/images/tiger.png");
+  background-size: 40%;
+}
+
+.godiva {
+  background-image:url("../assets/images/godiva.png");
+  background-size: contains;
+}
+
+.rocket {
+  background-image:url("../assets/images/rocket.png");
+  background-size: 20%;
+}
+
+.satalite {
+  background-image:url("../assets/images/satalite.png");
+  background-size: 50%;
+}
+
+.bomb {
+  background-image:url("../assets/images/bomb.png");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.explode {
+  background-image:url("../assets/images/explode.png");
+}
+
 @media only screen and (min-width : 668px) {
   .knockout {
     background: url('../assets/images/hero-background960.jpg')no-repeat;
@@ -375,95 +464,6 @@ i {
     background-attachment: fixed;
     background-size: 100% auto;
     width: 100%;
-  }
-
-  .hidden {
-    display: block;
-    clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%); 
-  }
-  
-  .dont {
-    background-image:url("../assets/images/dont.svg");
-    display: block;
-  }
-  
-  .stop {
-    background-image:url("../assets/images/stop.svg");
-  }
-  
-  .me {
-    background-image:url("../assets/images/me.svg");
-  }
-  
-  .now {
-    background-image:url("../assets/images/now.svg");
-  }
-  
-  .earth1 {
-    background-image:url("../assets/images/earth.png");
-    background-repeat: no-repeat;
-    background-position: left;
-  }
-  
-  .earth2 {
-    @extend .earth1;
-    background-position: center;
-  }
-  
-  .earth3 {
-    @extend .earth1;
-    background-position: right;
-  }
-  
-  .earthneg1 {
-    background-image:url("../assets/images/earthneg.png");
-    background-repeat: no-repeat;
-    background-position: right;
-  }
-  
-  .earthneg2 {
-    @extend .earthneg1;
-    background-position: center;
-  }
-  
-  .earthneg3 {
-    @extend .earthneg1;
-    background-position: left;
-  }
-  
-  .comet{
-    background-image:url("../assets/images/comet.png");
-    background-size: 25%;
-  }
-  
-  .tiger {
-    background-image:url("../assets/images/tiger.png");
-    background-size: 40%;
-  }
-  
-  .godiva {
-    background-image:url("../assets/images/godiva.png");
-    background-size: contains;
-  }
-  
-  .rocket {
-    background-image:url("../assets/images/rocket.png");
-    background-size: 20%;
-  }
-  
-  .satalite {
-    background-image:url("../assets/images/satalite.png");
-    background-size: 50%;
-  }
-  
-  .bomb {
-    background-image:url("../assets/images/bomb.png");
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-  
-  .explode {
-    background-image:url("../assets/images/explode.png");
   }
 }
 

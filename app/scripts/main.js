@@ -3,7 +3,31 @@
 const rellax = new Rellax('.rellax');
 
 jQuery(($) => {
+  window.requestAnimFrame = (function setRequestAnimFrame() {
+    return window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    function requestAnimFrame(callback) {
+      window.setTimeout(callback, 1000 / 60);
+    };
+  }());
+
   const model = {
+    audio: (function initAudio() {
+      window.AudioContext = window.AudioContext || window.webkitAudioContext;
+      return new AudioContext();
+    }()),
+
+    // basic web audio API playback function
+    triggerSound: function triggerSound() {
+      const source = this.audio.createBufferSource();
+      source.buffer = this.coinSound;
+      source.connect(this.audio.destination);
+      source.start(0);
+    },
+
     canvas: null,
     context: null,
 
@@ -161,15 +185,15 @@ jQuery(($) => {
       }, 400);
     },
 
-    revealSecret: function revealSecret($parent, element, whenToReveal, scrollTop) {
-      const parentTop = $parent.offset().top;
-      whenToReveal = parentTop + ($parent.height() * whenToReveal);
+    revealSecret: function revealSecret(parent, element, whenToReveal, scrollTop) {
+      const parentTop = parent.offset().top;
+      whenToReveal = parentTop + (parent.height() * whenToReveal);
 
       if (scrollTop > whenToReveal) {
         const percent = 100 - ((scrollTop - whenToReveal) * 0.1);
-        $(`${element}`).css('clip-path', `polygon(0% ${percent}%, 100% ${percent}%, 100% 100%, 0% 100%)`);
+        $(`${element}`).css('-webkit-clip-path', `polygon(0% ${percent}%, 100% ${percent}%, 100% 100%, 0% 100%)`);
       } else {
-        $(`${element}`).css('clip-path', 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)');
+        $(`${element}`).css('-webkit-clip-path', 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)');
       }
     },
 
@@ -180,6 +204,7 @@ jQuery(($) => {
 
   const controller = {
     initialize: function initialize() {
+      this.loadSounds();
       model.canvas = document.querySelector('canvas');
       model.context = model.canvas.getContext('2d');
       this.setCanvasDimensions(true, true);
@@ -187,7 +212,7 @@ jQuery(($) => {
       this.setupListeners();
       this.canvasLoop();
       this.setSectionsHeight();
-      view.hideSecretSection(this.isMobile());
+      // view.hideSecretSection(this.isMobile());
     },
 
     setupListeners: function setupListeners() {
@@ -202,6 +227,8 @@ jQuery(($) => {
       $(window).on('scroll', this.revealSecret);
 
       $('.nav-to-contact').on('click', this.scrollTo);
+
+      $('a, span').on('click', model.triggerSound.bind(model));
     },
 
     getViewDimensions: function getViewDimensions() {
@@ -297,7 +324,7 @@ jQuery(($) => {
       const scrollTop = $(window).scrollTop();
       const parent = $('.secret');
 
-      view.revealSecret(parent, '.earth1', 0, scrollTop);
+      view.revealSecret(parent, '.earth1', 0.001, scrollTop);
       view.revealSecret(parent, '.earth2', 0.02, scrollTop);
       view.revealSecret(parent, '.earth3', 0.04, scrollTop);
       view.revealSecret(parent, '.earthneg1', 0.07, scrollTop);
@@ -322,38 +349,51 @@ jQuery(($) => {
 
       model.context.fillStyle = 'rgba(250, 98, 95, 1)';
       model.context.fillRect(0, 0, width, height);
-
       while (updateTime + 1500 < performance.now()) {
         const skill = model.skillModule(width, height);
         model.activeSkills.push(skill);
         updateTime = performance.now();
       }
-
       model.activeSkills.forEach((item) => {
         item.draw.call(model);
         item.update.call(model);
       });
 
-      model.activeSkills = model.activeSkills.filter(item =>
-        !(item.getY.call(model) < 0));
-
       Object.values(model.activeFlames).forEach((item, index) => {
         model.drawStyle = model.drawStyle === 'strokeStyle' ? 'fillStyle' : 'strokeStyle';
         model.drawMethod = model.drawMethod === 'fill' ? 'stroke' : 'fill';
-
         model.fillFlameArray(item);
         model.drawFlames(index, item, model.drawStyle, model.flameColors[index], model.drawMethod);
       });
-
-      Object.keys(model.activeFlames).forEach((key) => {
-        model.activeFlames[key] = model.activeFlames[key]
-          .filter(item => !(item.getY.call(model) < item.deletePoint));
-      });
-
       model.drawWaves(width, height, this.isShortPortrait() || this.isLongPortrait());
 
       requestAnimationFrame(canvasLoop.bind(this, updateTime));
     },
+
+    canvasObjectManagement: setInterval(() => {
+      Object.keys(model.activeFlames).forEach((key) => {
+        model.activeFlames[key] = model.activeFlames[key]
+          .filter(item => !(item.getY.call(model) < item.deletePoint));
+
+        model.activeSkills = model.activeSkills.filter(item =>
+          !(item.getY.call(model) < 0));
+      });
+    }, 100),
+
+    loadSounds: function loadSounds() {
+      const request = new XMLHttpRequest();
+      const audioUrl = '/assets/sounds/coin.mp3';
+
+      request.open('GET', audioUrl);
+      request.responseType = 'arraybuffer';
+      request.onload = function onload() {
+        model.audio.decodeAudioData(request.response, (buffer) => {
+          model.coinSound = buffer;
+        });
+      };
+      request.send();
+    },
   };
+
   controller.initialize();
 });
