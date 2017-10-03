@@ -351,14 +351,7 @@ i {
 }
 
 .hidden {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-size: contain;
-  background-repeat: repeat;
-  clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+  display: none;
 }
 
 @media only screen and (min-width : 668px) {
@@ -376,6 +369,18 @@ i {
     background-attachment: fixed;
     background-size: 100% auto;
     width: 100%;
+  }
+
+  .hidden {
+    display: block;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-size: contain;
+    background-repeat: repeat;
+    clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
   }
 
   .dont {
@@ -589,13 +594,13 @@ i {
 }
 
 @media screen and (min-aspect-ratio: 3/2) {
-    html {
-        font-size: 1.3vw;
-    }
+  html {
+      font-size: 1.3vw;
+  }
 
-    .about {
-      p {
-        font-size: 6rem;
-      }
+  .about {
+    p {
+      font-size: 6rem;
     }
+  }
 }
