@@ -303,55 +303,62 @@ i {
   position: relative;
   overflow: hidden;
   width: 100%;
-    height: 3000vh;
+  height: 3000vh;
+  background-image: repeating-linear-gradient(
+  hsl(57, 94%, 73%),
+  hsl(97, 94%, 73%) 2%,
+  hsl(137, 94%, 73%) 4%,
+  hsl(177, 94%, 73%) 6%,
+  hsl(217, 94%, 73%) 8%,
+  hsl(257, 94%, 73%) 10%,
+  hsl(297, 94%, 73%) 12%,
+  hsl(337, 94%, 73%) 14%,
+  hsl(17, 94%, 73%) 16%,
+  hsl(57, 94%, 73%) 18%
+  );
+
+  a {
+    color: #fa625f;
+    background-color: #fbf579;
+    font-size: 6rem;
+    z-index: 1;
+    text-align: center;
+    position: absolute;
+    bottom: 1.5%;
+    left: 20%;
+    right: 20%;
+    text-decoration: none;
+    transition: .2s ease;
+  }
+
+  a:hover {
+    color: black;
     background-image: repeating-linear-gradient(
-    hsl(57, 94%, 73%),
-    hsl(97, 94%, 73%) 2%,
-    hsl(137, 94%, 73%) 4%,
-    hsl(177, 94%, 73%) 6%,
-    hsl(217, 94%, 73%) 8%,
-    hsl(257, 94%, 73%) 10%,
-    hsl(297, 94%, 73%) 12%,
-    hsl(337, 94%, 73%) 14%,
-    hsl(17, 94%, 73%) 16%,
-    hsl(57, 94%, 73%) 18%
-    );
-
-    a {
-      color: #fa625f;
-      background-color: #fbf579;
-      font-size: 6rem;
-      z-index: 1;
-      text-align: center;
-      position: absolute;
-      bottom: 1.5%;
-      left: 20%;
-      right: 20%;
-      text-decoration: none;
-      transition: .2s ease;
-    }
-
-    a:hover {
-      color: black;
-      background-image: repeating-linear-gradient(
-        hsl(57, 94%, 73%),
-        hsl(97, 94%, 73%) 2%,
-        hsl(137, 94%, 73%) 4%,
-        hsl(177, 94%, 73%) 6%,
-        hsl(217, 94%, 73%) 8%,
-        hsl(257, 94%, 73%) 10%,
-        hsl(297, 94%, 73%) 12%,
-        hsl(337, 94%, 73%) 14%,
-        hsl(17, 94%, 73%) 16%,
-        hsl(57, 94%, 73%) 18%
-        );
-      transform: scale(2);
-      transition: .2s ease;
-    }
+      hsl(57, 94%, 73%),
+      hsl(97, 94%, 73%) 2%,
+      hsl(137, 94%, 73%) 4%,
+      hsl(177, 94%, 73%) 6%,
+      hsl(217, 94%, 73%) 8%,
+      hsl(257, 94%, 73%) 10%,
+      hsl(297, 94%, 73%) 12%,
+      hsl(337, 94%, 73%) 14%,
+      hsl(17, 94%, 73%) 16%,
+      hsl(57, 94%, 73%) 18%
+      );
+    transform: scale(2);
+    transition: .2s ease;
+  }
 }
 
 .hidden {
   display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-size: contain;
+  background-repeat: repeat;
 }
 
 @media only screen and (min-width : 668px) {
@@ -371,21 +378,8 @@ i {
     width: 100%;
   }
 
-  .hidden {
-    display: block;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-size: contain;
-    background-repeat: repeat;
-    clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
-  }
-
   .dont {
     background-image:url("../assets/images/dont.svg");
-    display: block;
   }
   
   .stop {

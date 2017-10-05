@@ -191,7 +191,7 @@ window.requestAnimFrame = (function setRequestAnimFrame() {
     context.fillStyle = '#fbf579';
     context.beginPath();
     while (end2 < width) {
-      context.moveTo(end2, height * .95);
+      context.moveTo(end2, height * 0.95);
       context.bezierCurveTo(end2 + length * 0.02, height * 0.9, end2 + length * 0.06, height, end2 + length * 0.08, height * 0.95);
       end2 += length * 0.08
     }
@@ -203,7 +203,7 @@ window.requestAnimFrame = (function setRequestAnimFrame() {
   }
 
   window.app = {};
-  app.model = {
+  window.app.model = {
     getViewDimensions,
     getViewAspect,
     context,
@@ -259,10 +259,9 @@ window.requestAnimFrame = (function setRequestAnimFrame() {
     whenToReveal = parentTop + (parent.height() * whenToReveal);
 
     if (scrollTop > whenToReveal) {
-      const percent = Math.round((100 - ((scrollTop - whenToReveal) * 0.1)) / 20) * 20;
-      $(`${element}`).css('-webkit-clip-path', `polygon(0% ${percent}%, 100% ${percent}%, 100% 100%, 0% 100%)`);
+      element.show();
     } else {
-      $(`${element}`).css('-webkit-clip-path', 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)');
+      element.hide();
     }
   }
 
@@ -270,7 +269,7 @@ window.requestAnimFrame = (function setRequestAnimFrame() {
     if (isMobile) $('.secret').hide();
   }
 
-  app.view = {
+  window.app.view = {
     hideProject,
     showProject,
     revealSecret,
@@ -322,23 +321,9 @@ window.requestAnimFrame = (function setRequestAnimFrame() {
     const scrollTop = $(window).scrollTop();
     const parent = $('.secret');
 
-    view.revealSecret(parent, '.earth1', 0.001, scrollTop);
-    view.revealSecret(parent, '.earth2', 0.02, scrollTop);
-    view.revealSecret(parent, '.earth3', 0.04, scrollTop);
-    view.revealSecret(parent, '.earthneg1', 0.07, scrollTop);
-    view.revealSecret(parent, '.earthneg2', 0.09, scrollTop);
-    view.revealSecret(parent, '.earthneg3', 0.11, scrollTop);
-    view.revealSecret(parent, '.dont', 0.140, scrollTop);
-    view.revealSecret(parent, '.comet', 0.21, scrollTop);
-    view.revealSecret(parent, '.tiger', 0.28, scrollTop);
-    view.revealSecret(parent, '.stop', 0.35, scrollTop);
-    view.revealSecret(parent, '.godiva', 0.42, scrollTop);
-    view.revealSecret(parent, '.rocket', 0.49, scrollTop);
-    view.revealSecret(parent, '.me', 0.56, scrollTop);
-    view.revealSecret(parent, '.satalite', 0.63, scrollTop);
-    view.revealSecret(parent, '.bomb', 0.72, scrollTop);
-    view.revealSecret(parent, '.now', 0.81, scrollTop);
-    view.revealSecret(parent, '.explode', 0.89, scrollTop);
+    $('.hidden').each((index, item) => {
+      view.revealSecret(parent, $(item), index * .055, scrollTop);
+    });
   }
 
   let updateTime = performance.now();
@@ -372,7 +357,7 @@ window.requestAnimFrame = (function setRequestAnimFrame() {
     requestAnimationFrame(canvasLoop);
   }
 
-  let canvasObjectManagement = setInterval(() => {
+  const canvasObjectManagement = setInterval(() => {
     Object.keys(model.activeFlames).forEach((key) => {
       model.activeFlames[key] = model.activeFlames[key]
         .filter(item => !(item.getY() < item.deletePoint));
@@ -401,7 +386,7 @@ window.requestAnimFrame = (function setRequestAnimFrame() {
     view.hideSecretSection(model.isMobile());
   }
 
-  app.controller = {
+  window.app.controller = {
     initialize,
   };
 }(window.app.model, window.app.view));
