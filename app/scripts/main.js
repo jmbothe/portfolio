@@ -59,11 +59,12 @@ window.requestAnimFrame = (function setRequestAnimFrame() {
   }
 
   const skillList = [
-    'ES2015', 'CSS3', 'HTML5', 'Gulp', 'MVC', 'JavaScript', 'Foundation', 'Bootstrap',
-    'Node.js', 'npm', 'postcss', 'bash', 'git', 'gitHub', 'Photoshop', 'DRY code',
-    'clean code', 'self-documenting code', 'mobile-first', 'responsive design',
-    'functional programming', 'OOP', 'hella APIs', 'Atom', 'Visual Studio Code',
-    'jQuery', 'Flexbox', 'babel', 'sourcemaps', 'compatability', 'graphic design',
+    'ES2015', 'CSS3', 'HTML5', 'Gulp', 'The MVC Pattern', 'JavaScript', 'Zurb\'s Foundation',
+    'Node.js', 'npm', 'Twitter Bootstrap', 'CLI All Day', 'Git', 'GitHub', 'Photoshop', 'DRY code',
+    'Clean Code', 'Self-documenting Code', 'Mobile-first', 'Responsive Design',
+    'Functional Programming', 'OOP', 'Hella APIs', 'Sass', 'SEO', 'UI/UX Design',
+    'jQuery', 'Flexbox', 'React.js', 'Sourcemaps', 'Graphic Design', 'JSX', 'CSS Grid',
+    'Agile Development',
   ];
   const skillColors = ['hsl(290, 6%, 18%)', '#fbf579'];
 
@@ -111,9 +112,11 @@ window.requestAnimFrame = (function setRequestAnimFrame() {
     skillCounter++;
     const skill = skillList[skillCounter % skillList.length];
 
-    const font = width > height
+    let font = width > height
       ? random((height) * 0.09, (height) * 0.13)
       : random((width) * 0.06, (width) * 0.1);
+
+    font = font > 75 ? random(65, 75) : font;
 
     context.font = `${font}px Archivo Black`;
     const textWidth = context.measureText(skill).width;
@@ -370,8 +373,9 @@ window.requestAnimFrame = (function setRequestAnimFrame() {
     $(window)
       .on('resize', model.setCanvasDimensions.bind(null, true, false))
       .on('orientationchange', model.setCanvasDimensions.bind(null, true, true))
-      .on('orientationchange', setSectionsHeight)
-      .on('scroll', revealSecret);
+      .on('orientationchange', setSectionsHeight);
+
+    if (!model.isMobile()) $(window).on('scroll', revealSecret);
 
     $('.projects-grid').on('click', '.project-hide', toggleProject);
 
@@ -379,10 +383,10 @@ window.requestAnimFrame = (function setRequestAnimFrame() {
   }
 
   function initialize() {
-    model.setCanvasDimensions(true, true);
     setupListeners();
-    canvasLoop();
     setSectionsHeight();
+    model.setCanvasDimensions(true, true);
+    canvasLoop();
     view.hideSecretSection(model.isMobile());
   }
 

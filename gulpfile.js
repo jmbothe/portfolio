@@ -7,31 +7,31 @@ const del = require('del');
 const rename = require('gulp-rename');
 const postcss = require('gulp-postcss');
 const cssnano = require('gulp-cssnano');
-const htmlReplace = require('gulp-html-replace')
+const htmlReplace = require('gulp-html-replace');
 const minify = require('gulp-babel-minify');
 const access = require('gulp-accessibility');
+
 const reload = browserSync.reload;
 
 gulp.task('test', () => {
   gulp.src('app/**/*.html')
     .pipe(access({ force: true }))
-    .on('error', console.log)
-    .pipe(access.report({reportType: 'txt'}))
+    .pipe(access.report({ reportType: 'txt' }))
     .pipe(rename({ extname: '.txt' }))
     .pipe(gulp.dest('reports/txt'));
-})
+});
 
 gulp.task('postcss', () => {
-    gulp.src('app/styles/post.css')
+  gulp.src('app/styles/post.css')
     .pipe(plumber())
     .pipe(postcss([require('precss')(), require('autoprefixer')({ browsers: 'last 2 versions, > 5%' })]))
     .pipe(rename('styles.css'))
     .pipe(gulp.dest('app/styles/'))
-    .pipe(reload({stream: true}));
-})
+    .pipe(reload({ stream: true }));
+});
 
 gulp.task('css', ['postcss'], () => {
-  gulp.src([
+  const stream = gulp.src([
     'app/styles/normalize.css',
     'app/styles/styles.css'])
     .pipe(plumber())
@@ -40,7 +40,9 @@ gulp.task('css', ['postcss'], () => {
     .pipe(cssnano())
     .pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest('dist/styles/'))
-    .pipe(reload({stream: true}));
+    .pipe(reload({ stream: true }));
+
+  return stream;
 });
 
 gulp.task('scripts', () => {
@@ -56,39 +58,41 @@ gulp.task('scripts', () => {
     .pipe(minify())
     .pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest('dist/scripts'))
-    .pipe(reload({stream: true}));
+    .pipe(reload({ stream: true }));
 });
 
 gulp.task('html', () => {
   gulp.src('app/**/*.html')
-  .pipe(htmlReplace({
-    'js': '<script src="scripts/app.min.js" defer></script>',
-    'css': '<link rel="stylesheet" href="styles/styles.css">',
-  }))
-  .pipe(gulp.dest('dist'))
-  .pipe(reload({stream: true}));
-})
+    .pipe(htmlReplace({
+      js: '<script src="scripts/app.min.js" defer></script>',
+      css: '<link rel="stylesheet" href="styles/styles.css">',
+    }))
+    .pipe(gulp.dest('dist'))
+    .pipe(reload({ stream: true }));
+});
 
 gulp.task('assets:cleanfolder', () => del(['dist/assets/**']));
 
 gulp.task('assets:copy', ['assets:cleanfolder'], () => {
-  gulp.src(['app/assets/**/*', '!app/assets/psd/*'])
-    .pipe(gulp.dest('dist/assets'))
-})
+  const stream = gulp.src(['app/assets/**/*', '!app/assets/psd/*'])
+    .pipe(gulp.dest('dist/assets'));
+
+  return stream;
+});
 
 gulp.task('browser-sync', () => {
-  browserSync ({
+  browserSync({
     server: {
-      baseDir: './app'
-    }
-  })
-})
+      baseDir: './app',
+    },
+  });
+});
 
 gulp.task('watch', () => {
   gulp.watch('app/scripts/**/*.js', ['scripts']);
   gulp.watch('app/styles/**/*css', ['css']);
   gulp.watch('app/**/*.html', ['html']);
-  gulp.watch('app/assets/**/*', ['assets:copy'])
-})
+  gulp.watch('app/assets/**/*', ['assets:copy']);
+});
 
 gulp.task('default', ['scripts', 'css', 'html', 'assets:copy', 'browser-sync', 'watch']);

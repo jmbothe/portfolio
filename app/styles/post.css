@@ -14,12 +14,15 @@ html {
 }
 
 body {
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
+    background-color: #fbf579;
 }
 
 section, footer {
     display: flex;
+    max-width: 1280px;
+    margin: 0 auto;
 }
 
 a:hover {
@@ -46,6 +49,11 @@ h3 {
 
 p, a {
 font-size: 3rem;
+}
+
+.hero-wrap, .projects-wrap, .contact-wrap {
+  width: 100%;
+  background-color: #fbf579;
 }
 
 .hero {
@@ -78,14 +86,34 @@ font-size: 3rem;
     }
 }
 
+.about-wrap {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(#fbf579, #fa625f);
+
+}
+
+.about-wrap::before {
+  content: "";
+  position: absolute;
+  top: 0; 
+  left: 0;
+  width: 100%; 
+  height: 100%;  
+  opacity: .5; 
+  z-index: 1;
+  background: url("../assets/images/background-large.png");
+  background-size: 200%;
+  background-attachment: fixed;
+}
+
 .about {
   overflow: hidden;
   position: relative;
     flex-direction: column;
-    background: linear-gradient(#fbf579, #fa625f);
     p {
       z-index: 1;
-      font-size: 7rem;
+      font-size: 6.75rem;
     }
     h2 {
       position: absolute;
@@ -94,14 +122,18 @@ font-size: 3rem;
       font-size: 20rem;
     }
     span, a {
-      color:hsla(47, 94%, 73%, .85);
-      font-size: 7rem;
+      color: #fbf579;
+      font-size: 6.8rem;
       cursor: pointer;
       text-decoration: none;
+      padding-bottom: 0;
+      border: 0 solid #fbf579;
       transition: .2s ease;
     }
     span:hover, a:hover {
       color: #fbf579;
+      padding-bottom: 10px;
+      border-bottom: 10px solid #fbf579;
       transition: .2s ease;
     }
 }
@@ -118,6 +150,7 @@ font-size: 3rem;
 }
 
 .projects-grid {
+  display: flex;
     flex-direction: column;
     align-items: center;
 }
@@ -234,11 +267,11 @@ font-size: 3rem;
 
 .skills {
   position: relative;
-    height: 100vh;
+  max-width: 100%;
     h2 {
         position: absolute;
-        margin-top: 5%;
-        margin-bottom: 5%;
+        max-width: 1280px;
+        margin: 5% auto;
         font-size: 9rem;
         background: transparent;
     }
@@ -302,7 +335,7 @@ i {
 .secret {
   position: relative;
   overflow: hidden;
-  width: 100%;
+  max-width: 100%;
   height: 3000vh;
   background-image: repeating-linear-gradient(
   hsl(57, 94%, 73%),
@@ -536,9 +569,17 @@ i {
   }
 }
 
+i {
+  font-size: 11rem;
+}
+
 @media screen and (min-aspect-ratio: 4/3) {
     html {
         font-size: 1.5vw;
+    }
+
+    .about-wrap::before {
+      background-size: 100%;
     }
 
     .projects-grid {
@@ -547,8 +588,8 @@ i {
     }
 
   .project-shell {
-    height: 50vw;
-    width: 50vw;
+    height: 35rem;
+    width: 35rem;
     h3 {
       font-size: 2.5rem;
       transition: transform .5s ease;
@@ -587,14 +628,24 @@ i {
   }
 }
 
+i {
+  font-size: 13rem;
+}
+
 @media screen and (min-aspect-ratio: 3/2) {
   html {
       font-size: 1.3vw;
   }
 
   .about {
-    p {
-      font-size: 6rem;
+    p, span, a {
+      font-size: 5.25rem;
     }
+  }
+}
+
+@media only screen and (min-width : 1280px) {
+  html {
+    font-size: 18px;
   }
 }
