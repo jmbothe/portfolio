@@ -25,7 +25,7 @@
 
 ## Description
 
-This was my first attempt at creating a "professional" web development portfolio, but it came a little too soon in my career. I'm very proud of some of the cool, expressive stuff that is going on here, but I;ve been told more than once that it is "a little much". A lot of love went into this website, and it will always be one of my favorites.
+This was my first attempt at creating a "professional" web development portfolio, but it came a little too soon in my career. While working on this site, the question I always kept at the front of my mind was "What if it was the year 3017, and Geocities came back, and there was a neighborhood called The Bowery?". That was pretty much the inspiration behind the whole project. I'm very proud of some of the cool, expressive stuff that is going on here, but I;ve been told more than once that it is "a little much". A lot of love went into this website, and it will always be one of my favorites.
 
 <a name="contributing"/>
 
@@ -41,4 +41,6 @@ Author
 * Jeff Bothe, @jmbothe
 
 Inspiration
+* [Geocities](https://archive.org/web/geocities.php)
+* [Freddie Mercury](http://www.freddiemercury.com/)
 * [Clean Code JavaScript](https://github.com/ryanmcdermott/clean-code-javascript), Ryan McDermott, @ryanmcdermott
